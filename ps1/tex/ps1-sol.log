@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.10)  5 DEC 2023 22:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.10)  5 DEC 2023 23:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -656,49 +656,49 @@ Non-PDF special ignored!
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 ] (./linearclass/00-main.tex (./linearclass/01-logreg.tex) (./linearclass/01-lo
-greg-sol.tex)
-(./linearclass/02-solve-logreg.tex) (./linearclass/02-solve-logreg-sol.tex)
-(./linearclass/03-gda.tex [2
+greg-sol.tex [2
 
-]) (./linearclass/03-gda-sol.tex)
+])
+(./linearclass/02-solve-logreg.tex) (./linearclass/02-solve-logreg-sol.tex)
+(./linearclass/03-gda.tex) (./linearclass/03-gda-sol.tex [3])
 (./linearclass/04-gda-ll.tex) (./linearclass/04-gda-ll-sol.tex)
-(./linearclass/05-solve-gda.tex [3]) (./linearclass/05-solve-gda-sol.tex)
+(./linearclass/05-solve-gda.tex) (./linearclass/05-solve-gda-sol.tex)
 (./linearclass/06-plot-ds1.tex) (./linearclass/06-plot-ds1-sol.tex)
-(./linearclass/07-plot-ds2.tex) (./linearclass/07-plot-ds2-sol.tex)
-(./linearclass/08-transform.tex) (./linearclass/08-transform-sol.tex)) [4]
+(./linearclass/07-plot-ds2.tex [4]) (./linearclass/07-plot-ds2-sol.tex)
+(./linearclass/08-transform.tex) (./linearclass/08-transform-sol.tex)) [5]
 (./posonly/00-main.tex (./posonly/01-train-t-labels.tex)
-(./posonly/01-train-t-labels-sol.tex) (./posonly/02-train-y-labels.tex [5
+(./posonly/01-train-t-labels-sol.tex) (./posonly/02-train-y-labels.tex [6
 
 ])
 (./posonly/02-train-y-labels-sol.tex) (./posonly/03-bayes-warm-up.tex)
 (./posonly/03-bayes-warm-up-sol.tex) (./posonly/04-constant.tex)
-(./posonly/04-constant-sol.tex) (./posonly/05-estimate-alpha.tex [6])
+(./posonly/04-constant-sol.tex) (./posonly/05-estimate-alpha.tex [7])
 (./posonly/05-estimate-alpha-sol.tex) (./posonly/06-plot.tex)
-(./posonly/06-plot-sol.tex)) [7] (./poisson/00-main.tex
+(./posonly/06-plot-sol.tex)) [8] (./poisson/00-main.tex
 (./poisson/01-exponential.tex) (./poisson/01-exponential-sol.tex)
 (./poisson/02-response-fn.tex) (./poisson/02-response-fn-sol.tex)
 (./poisson/03-gd-update.tex) (./poisson/03-gd-update-sol.tex)
-(./poisson/04-regression.tex) [8
+(./poisson/04-regression.tex) [9
 
-] (./poisson/04-regression-sol.tex)) [9]
+] (./poisson/04-regression-sol.tex)) [10]
 (./glmconvexity/00-main.tex (./glmconvexity/01-mean.tex)
 (./glmconvexity/01-mean-sol.tex) (./glmconvexity/02-var.tex)
 (./glmconvexity/02-var-sol.tex) (./glmconvexity/03-hessian.tex)
-(./glmconvexity/03-hessian-sol.tex) [10
+(./glmconvexity/03-hessian-sol.tex) [11
 
-]) [11] (./featuremaps/00-main.tex
+]) [12] (./featuremaps/00-main.tex
 (./featuremaps/01-degree-3-math.tex) (./featuremaps/01-degree-3-math-sol.tex)
-(./featuremaps/02-degree-3-code.tex [12
+(./featuremaps/02-degree-3-code.tex [13
 
 ])
 (./featuremaps/02-degree-3-code-sol.tex) (./featuremaps/03-degree-k-code.tex)
 (./featuremaps/03-degree-k-code-sol.tex) (./featuremaps/04-other-features.tex)
 (./featuremaps/04-other-features-sol.tex) (./featuremaps/05-overfitting.tex
-[13]) (./featuremaps/05-overfitting-sol.tex)) [14] (./ps1-sol.aux) ) 
+[14]) (./featuremaps/05-overfitting-sol.tex)) [15] (./ps1-sol.aux) ) 
 Here is how much of TeX's memory you used:
  16858 strings out of 481239
  317173 string characters out of 5920377
- 529344 words of memory out of 5000000
+ 530344 words of memory out of 5000000
  31606 multiletter control sequences out of 15000+600000
  541037 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -717,16 +717,17 @@ texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts
 /type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/
-msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/m
-sbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on ps1-sol.pdf (14 pages, 253658 bytes).
+/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
+pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on ps1-sol.pdf (15 pages, 266956 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 97 compressed objects within 1 object stream
+ 142 PDF objects out of 1000 (max. 8388607)
+ 102 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

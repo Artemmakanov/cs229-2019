@@ -1,2 +1,43 @@
 \begin{answer}
+Firstly, lets find the gradient of average empirical loss:
+\begin{equation*}
+	\nabla \theta(J(\theta))
+	= -\frac{1}{\nexp} \sum_{i=1}^\nexp \left(y^{(i)} \nabla \theta(\log(h_{\theta}(x^{(i)})))
+		+  (1 - y^{(i)}) \nabla \theta(\log(1 - h_{\theta}(x^{(i)})))\right) \newline
+\end{equation*}
+
+\begin{equation*}
+	=  -\frac{1}{\nexp} \sum_{i=1}^\nexp \frac{\nabla \theta(h_{\theta}(x^{(i)})) (y^{(i)} - h_{\theta}(x^{(i)})))}{h_{\theta(x^{(i)})} (1-h_{\theta(x^{(i)})})}
+\end{equation*}
+
+\begin{equation*}
+	=  -\frac{1}{\nexp} \sum_{i=1}^\nexp x^{(i)} (y^{(i)} - h_{\theta}(x^{(i)}))
+\end{equation*}
+
+
+\begin{equation*}
+	=  -\frac{1}{\nexp} \sum_{i=1}^\nexp x^{(i)} (y^{(i)} - h_{\theta}(x^{(i)}))
+\end{equation*}
+
+Then, lets write the Hessian analyticaly:
+
+\begin{equation*}
+\frac{\partial^2 f}{\partial \theta^{(j)} \partial \theta^{(k)}} = \frac{1}{\nexp} \sum_{i=1}^\nexp 
+h_{\theta}(x^{(i)}) (1-h_{\theta}(x^{(i)})x_{j}^{(i)}x_{k}^{(i)}
+\end{equation*}
+
+And, finally:
+\begin{equation*}
+z^T H z = [\frac{1}{\nexp} \sum_{i=1}^\nexp h_{\theta}(x^{(i)}) (1-h_{\theta}(x^{(i)})x_{1}^{(i)}x_{1}^{(i)}z_{1} + ... + \frac{1}{\nexp} \sum_{i=1}^\nexp h_{\theta}(x^{(i)}) (1-h_{\theta}(x^{(i)})x_{1}^{(i)}x_{n}^{(i)}z_{n}]z_{1} +
+\end{equation*}
+\begin{equation*}
+ ... + [\frac{1}{\nexp} \sum_{i=1}^\nexp h_{\theta}(x^{(i)}) (1-h_{\theta}(x^{(i)})x_{1}^{(i)}x_{n}^{(i)}z_{1} + ... + \frac{1}{\nexp} \sum_{i=1}^\nexp h_{\theta}(x^{(i)}) (1-h_{\theta}(x^{(i)})x_{n}^{(i)}x_{n}^{(i)}z_{n}]z_{n}
+\end{equation*}
+
+\begin{equation*}
+= [\frac{1}{\nexp} \sum_{i=1}^\nexp h_{\theta}(x^{(i)}) (1-h_{\theta})][(x_{1}^{(i)})^{2} x_{1}^{2} + ... + x_{1}^{(i)}x_{n}^{(i)}z_{1}z_{n} + ... + x_{1}^{(i)}x_{n}^{(i)}z_{1}z_{n} + (x_{n}^{(i)})^{2} x_{n}^{2}] = 
+\end{equation*}
+\begin{equation*}
+= [\frac{1}{\nexp} \sum_{i=1}^\nexp h_{\theta}(x^{(i)}) (1-h_{\theta})] \sum_{j}\sum_{k} z_{j}x_{j}^{(i)}x_{k}^{(i)}z_{k} \ge 0.
+\end{equation*}
 \end{answer}
