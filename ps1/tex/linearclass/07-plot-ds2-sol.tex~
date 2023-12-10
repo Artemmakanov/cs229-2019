@@ -1,0 +1,3 @@
+\begin{answer}
+I can see that on the 2nd Dataset GDA preforms worse that Logistic Regression. I suppose, that is because the parameters obtained from $\phi$, $\mu_0$, $\mu_1$, $\Sigma$  of Logistic regression are the first approximanation, while Logistic Regrecssion, which learns iteratively, can achieve better perfomance though the time.
+\end{answer}

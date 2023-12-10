@@ -1,9 +1,9 @@
 \begin{answer}
 Firstly, lets find the gradient of average empirical loss:
 \begin{equation*}
-	\nabla \theta(J(\theta))
+	\nabla_\theta(J(\theta))
 	= -\frac{1}{\nexp} \sum_{i=1}^\nexp \left(y^{(i)} \nabla \theta(\log(h_{\theta}(x^{(i)})))
-		+  (1 - y^{(i)}) \nabla \theta(\log(1 - h_{\theta}(x^{(i)})))\right) \newline
+		+  (1 - y^{(i)}) \nabla_\theta(\log(1 - h_{\theta}(x^{(i)})))\right) \newline
 \end{equation*}
 
 \begin{equation*}

@@ -50,32 +50,4 @@ Let's solve it for $\mu_0$. For $\mu_1$ is similarly:
 1\{y^{(i)} = {1}\}}
 \end{equation*}
 
-Let's solve it for $\Sigma$:
-
-\begin{equation*}
-\nabla_\Sigma(\ell(\phi, \mu_{0}, \mu_1, \Sigma)) = \nabla_\Sigma(\sum_{i=1}^\nexp  -\frac{1}{2}(x^{(i)}-\mu_{y^{(i)}})^T \Sigma^{-1} (x^{(i)}-\mu_{y^{(i)}}) + \log(\frac{1}{(2\pi)^{(d/2)}}) + \log(\frac{1}{|\Sigma|^{1/2}})) = 0
-\end{equation*}
-
-\begin{equation*}
-\nabla_\Sigma(\sum_{i=1}^\nexp (x^{(i)}-\mu_{y^{(i)}})^T \Sigma^{-1} (x^{(i)}-\mu_{y^{(i)}}) + \log(|\Sigma|)) = 0
-\end{equation*}
-
-\begin{equation*}
-S = \Sigma^{-1}; \\
-\nabla_\Sigma(\sum_{i=1}^\nexp (x^{(i)}-\mu_{y^{(i)}})^T S (x^{(i)}-\mu_{y^{(i)}}) + \log(|S|^{-1})) = 0
-\end{equation*}
-
-\begin{equation*}
-\sum_{i=1}^\nexp (x^{(i)}-\mu_{y^{(i)}})^T (x^{(i)}-\mu_{y^{(i)}}) \nabla_\Sigma(S)+ -S^{-T}\nabla_\Sigma(S)+) = 0
-\end{equation*}
-
-\begin{equation*}
-S^{-T} = \frac{\sum_{i=1}^\nexp(x^{(i)}-\mu_{y^{(i)}})^T (x^{(i)}-\mu_{y^{(i)}}) }{n} = \Sigma^{T}
-\end{equation*}
-
-\begin{equation*}
-\Sigma= \frac{\sum_{i=1}^\nexp(x^{(i)}-\mu_{y^{(i)}}) (x^{(i)}-\mu_{y^{(i)}})^T }{n}
-\end{equation*}
-
-
 \end{answer}

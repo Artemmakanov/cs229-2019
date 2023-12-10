@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.10)  5 DEC 2023 23:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.10)  10 DEC 2023 20:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -659,75 +659,135 @@ Non-PDF special ignored!
 greg-sol.tex [2
 
 ])
-(./linearclass/02-solve-logreg.tex) (./linearclass/02-solve-logreg-sol.tex)
-(./linearclass/03-gda.tex) (./linearclass/03-gda-sol.tex [3])
-(./linearclass/04-gda-ll.tex) (./linearclass/04-gda-ll-sol.tex)
-(./linearclass/05-solve-gda.tex) (./linearclass/05-solve-gda-sol.tex)
+(./linearclass/02-solve-logreg.tex) (./linearclass/02-solve-logreg-sol.tex
+<logreg_pred_1-plot.png, id=28, 462.528pt x 346.896pt>
+File: logreg_pred_1-plot.png Graphic file (type png)
+<use logreg_pred_1-plot.png>
+Package pdftex.def Info: logreg_pred_1-plot.png  used on input line 2.
+(pdftex.def)             Requested size: 138.75946pt x 104.0696pt.
+<logreg_pred_2-plot.png, id=30, 462.528pt x 346.896pt>
+File: logreg_pred_2-plot.png Graphic file (type png)
+<use logreg_pred_2-plot.png>
+Package pdftex.def Info: logreg_pred_2-plot.png  used on input line 3.
+(pdftex.def)             Requested size: 138.75946pt x 104.0696pt.
+)
+(./linearclass/03-gda.tex [3 <./logreg_pred_1-plot.png> <./logreg_pred_2-plot.p
+ng>]) (./linearclass/03-gda-sol.tex
+Overfull \hbox (5.14894pt too wide) detected at line 9
+[] \OT1/cmr/m/n/10 = [] =
+ []
+
+) (./linearclass/04-gda-ll.tex [4]) (./linearclass/04-gda-ll-sol.tex
+Overfull \hbox (71.11995pt too wide) detected at line 8
+\OML/cmm/m/it/10 `\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^^; ^^V[]; ^^V[]; \OT1/cmr
+/m/n/10 ^^F) = [] [] [](\OMS/cmsy/m/n/10 ^^@[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10
+ x[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 ^^V[]\OT1/cmr/m/n/10 )[]^^F[](\OML/c
+mm/m/it/10 x[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 ^^V[]\OT1/cmr/m/n/10 ))(1\
+OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 y[] \OT1/cmr/m/n/10 = 1\OMS/cmsy/m/n/10 g\OML
+/cmm/m/it/10 ^^^ \OT1/cmr/m/n/10 + 1\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 y[] \OT1
+/cmr/m/n/10 = 0\OMS/cmsy/m/n/10 g\OT1/cmr/m/n/10 (1 \OMS/cmsy/m/n/10 ^^@ \OML/c
+mm/m/it/10 ^^^\OT1/cmr/m/n/10 )) =
+ []
+
+
+Overfull \hbox (9.79552pt too wide) detected at line 12
+[]\OT1/cmr/m/n/10 [[]([]) \OMS/cmsy/m/n/10 ^^@ []\OT1/cmr/m/n/10 (\OML/cmm/m/it
+/10 x[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 ^^V[]\OT1/cmr/m/n/10 )[]^^F[](\OM
+L/cmm/m/it/10 x[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 ^^V[]\OT1/cmr/m/n/10 ) 
++ [](1\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 y[] \OT1/cmr/m/n/10 = 1\OMS/cmsy/m/n/1
+0 g\OML/cmm/m/it/10 ^^^ \OT1/cmr/m/n/10 + 1\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 y
+[] \OT1/cmr/m/n/10 = 0\OMS/cmsy/m/n/10 g\OT1/cmr/m/n/10 (1 \OMS/cmsy/m/n/10 ^^@
+ \OML/cmm/m/it/10 ^^^\OT1/cmr/m/n/10 ))]
+ []
+
+
+Overfull \hbox (21.52292pt too wide) detected at line 57
+\OMS/cmsy/m/n/10 r[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 `\OT1/cmr/m/n/10 (\OML/cm
+m/m/it/10 ^^^; ^^V[]; ^^V[]; \OT1/cmr/m/n/10 ^^F)) = \OMS/cmsy/m/n/10 r[]\OT1/c
+mr/m/n/10 ([] \OMS/cmsy/m/n/10 ^^@[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[] \OMS/
+cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 ^^V[]\OT1/cmr/m/n/10 )[]^^F[](\OML/cmm/m/it/10
+ x[] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 ^^V[]\OT1/cmr/m/n/10 ) + []([]) + []
+([])) = 0
+ []
+
+[5]) (./linearclass/05-solve-gda.tex) (./linearclass/05-solve-gda-sol.tex
+<gda_pred_1-plot.png, id=42, 462.528pt x 346.896pt>
+File: gda_pred_1-plot.png Graphic file (type png)
+<use gda_pred_1-plot.png>
+Package pdftex.def Info: gda_pred_1-plot.png  used on input line 2.
+(pdftex.def)             Requested size: 138.75946pt x 104.0696pt.
+<gda_pred_2-plot.png, id=43, 462.528pt x 346.896pt>
+File: gda_pred_2-plot.png Graphic file (type png)
+<use gda_pred_2-plot.png>
+Package pdftex.def Info: gda_pred_2-plot.png  used on input line 3.
+(pdftex.def)             Requested size: 138.75946pt x 104.0696pt.
+)
 (./linearclass/06-plot-ds1.tex) (./linearclass/06-plot-ds1-sol.tex)
-(./linearclass/07-plot-ds2.tex [4]) (./linearclass/07-plot-ds2-sol.tex)
-(./linearclass/08-transform.tex) (./linearclass/08-transform-sol.tex)) [5]
-(./posonly/00-main.tex (./posonly/01-train-t-labels.tex)
-(./posonly/01-train-t-labels-sol.tex) (./posonly/02-train-y-labels.tex [6
+(./linearclass/07-plot-ds2.tex) (./linearclass/07-plot-ds2-sol.tex)
+(./linearclass/08-transform.tex) (./linearclass/08-transform-sol.tex) [6 <./gda
+_pred_1-plot.png> <./gda_pred_2-plot.png>]) [7] (./posonly/00-main.tex
+(./posonly/01-train-t-labels.tex) (./posonly/01-train-t-labels-sol.tex)
+(./posonly/02-train-y-labels.tex [8
+
+]) (./posonly/02-train-y-labels-sol.tex)
+(./posonly/03-bayes-warm-up.tex) (./posonly/03-bayes-warm-up-sol.tex)
+(./posonly/04-constant.tex) (./posonly/04-constant-sol.tex)
+(./posonly/05-estimate-alpha.tex [9]) (./posonly/05-estimate-alpha-sol.tex)
+(./posonly/06-plot.tex) (./posonly/06-plot-sol.tex)) [10]
+(./poisson/00-main.tex (./poisson/01-exponential.tex)
+(./poisson/01-exponential-sol.tex) (./poisson/02-response-fn.tex)
+(./poisson/02-response-fn-sol.tex) (./poisson/03-gd-update.tex)
+(./poisson/03-gd-update-sol.tex) (./poisson/04-regression.tex) [11
+
+]
+(./poisson/04-regression-sol.tex)) [12] (./glmconvexity/00-main.tex
+(./glmconvexity/01-mean.tex) (./glmconvexity/01-mean-sol.tex)
+(./glmconvexity/02-var.tex) (./glmconvexity/02-var-sol.tex)
+(./glmconvexity/03-hessian.tex) (./glmconvexity/03-hessian-sol.tex) [13
 
 ])
-(./posonly/02-train-y-labels-sol.tex) (./posonly/03-bayes-warm-up.tex)
-(./posonly/03-bayes-warm-up-sol.tex) (./posonly/04-constant.tex)
-(./posonly/04-constant-sol.tex) (./posonly/05-estimate-alpha.tex [7])
-(./posonly/05-estimate-alpha-sol.tex) (./posonly/06-plot.tex)
-(./posonly/06-plot-sol.tex)) [8] (./poisson/00-main.tex
-(./poisson/01-exponential.tex) (./poisson/01-exponential-sol.tex)
-(./poisson/02-response-fn.tex) (./poisson/02-response-fn-sol.tex)
-(./poisson/03-gd-update.tex) (./poisson/03-gd-update-sol.tex)
-(./poisson/04-regression.tex) [9
+[14] (./featuremaps/00-main.tex (./featuremaps/01-degree-3-math.tex)
+(./featuremaps/01-degree-3-math-sol.tex) (./featuremaps/02-degree-3-code.tex
+[15
 
-] (./poisson/04-regression-sol.tex)) [10]
-(./glmconvexity/00-main.tex (./glmconvexity/01-mean.tex)
-(./glmconvexity/01-mean-sol.tex) (./glmconvexity/02-var.tex)
-(./glmconvexity/02-var-sol.tex) (./glmconvexity/03-hessian.tex)
-(./glmconvexity/03-hessian-sol.tex) [11
-
-]) [12] (./featuremaps/00-main.tex
-(./featuremaps/01-degree-3-math.tex) (./featuremaps/01-degree-3-math-sol.tex)
-(./featuremaps/02-degree-3-code.tex [13
-
-])
-(./featuremaps/02-degree-3-code-sol.tex) (./featuremaps/03-degree-k-code.tex)
-(./featuremaps/03-degree-k-code-sol.tex) (./featuremaps/04-other-features.tex)
-(./featuremaps/04-other-features-sol.tex) (./featuremaps/05-overfitting.tex
-[14]) (./featuremaps/05-overfitting-sol.tex)) [15] (./ps1-sol.aux) ) 
+]) (./featuremaps/02-degree-3-code-sol.tex)
+(./featuremaps/03-degree-k-code.tex) (./featuremaps/03-degree-k-code-sol.tex)
+(./featuremaps/04-other-features.tex) (./featuremaps/04-other-features-sol.tex)
+(./featuremaps/05-overfitting.tex [16]) (./featuremaps/05-overfitting-sol.tex))
+[17] (./ps1-sol.aux) ) 
 Here is how much of TeX's memory you used:
- 16858 strings out of 481239
- 317173 string characters out of 5920377
- 530344 words of memory out of 5000000
- 31606 multiletter control sequences out of 15000+600000
+ 16883 strings out of 481239
+ 317745 string characters out of 5920377
+ 529345 words of memory out of 5000000
+ 31626 multiletter control sequences out of 15000+600000
  541037 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  65i,15n,64p,944b,566s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share
-/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
-pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on ps1-sol.pdf (15 pages, 266956 bytes).
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.e
+nc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-su
+per/sfrm1000.pfb>
+Output written on ps1-sol.pdf (17 pages, 328590 bytes).
 PDF statistics:
- 142 PDF objects out of 1000 (max. 8388607)
- 102 compressed objects within 2 object streams
+ 157 PDF objects out of 1000 (max. 8388607)
+ 107 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
