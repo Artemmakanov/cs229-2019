@@ -1,2 +1,22 @@
 \begin{answer}
+
+\begin{equation*}
+\frac{\partial}{\partial\eta}(\mathbb{E}[Y; \eta]) = Var[y; \eta]
+\end{equation*}
+
+\begin{equation*}
+\frac{\partial}{\partial\eta}(\int y b(y)exp(\eta y - a(\eta)dy)) = \int y b(y) \frac{\partial}{\partial\eta}(exp(\eta y - a(\eta))dy) = 
+\end{equation*}
+
+\begin{equation*}
+\int y b(y)exp(\eta y - a(\eta)dy))[y - \frac{\partial}{\partial\eta}(a(\eta)]dy = 
+\end{equation*}
+
+\begin{equation*}
+\int y^2 b(y)exp(\eta y - a(\eta))dy -  \frac{\partial}{\partial\eta}(a(\eta)) \int y b(y) exp(\eta y - a(\eta))dy = \mathbb{E}[y^2; \eta] - (\mathbb{E}[y; \eta])^2 =  Var[y; \eta]
+\end{equation*}
+
+
+
+
 \end{answer}

@@ -13,10 +13,19 @@ def main(lr, train_path, eval_path, save_path):
     """
     # Load training set
     x_train, y_train = util.load_dataset(train_path, add_intercept=True)
-
+    x_eval, y_eval = util.load_dataset(eval_path, add_intercept=True)
     # *** START CODE HERE ***
     # Fit a Poisson Regression model
     # Run on the validation set, and use np.savetxt to save outputs to save_path
+
+    y_train = y_train.astype(np.int32)
+    y_eval = y_eval.astype(np.int32)
+    save_plot_path = save_path.replace('.txt', 'plot')
+    clf = PoissonRegression(step_size=lr)
+    clf.fit(x_train, y_train)
+    p_eval = clf.predict(x_eval)
+    np.savetxt(save_path, p_eval)
+    util.plot(y_eval, p_eval, save_plot_path)
     # *** END CODE HERE ***
 
 
@@ -53,7 +62,21 @@ class PoissonRegression:
             y: Training example labels. Shape (n_examples,).
         """
         # *** START CODE HERE ***
+        self.theta = np.zeros(x.shape[1])
+        for i in range(self.max_iter):
+            diff = self.step_size * ((y - self.predict(x)).dot(x)).mean(axis=0)
+            self.theta += diff
+            diff_norm = np.linalg.norm(diff)
+
+            if self.verbose:
+                print(f'i={i}; diff_norm={diff_norm}')
+
+            if diff_norm < self.eps:
+                print(self.theta)
+                break
         # *** END CODE HERE ***
+
+ 
 
     def predict(self, x):
         """Make a prediction given inputs x.
@@ -65,6 +88,8 @@ class PoissonRegression:
             Floating-point prediction for each input, shape (n_examples,).
         """
         # *** START CODE HERE ***
+
+        return np.exp(self.theta.dot(x.T))
         # *** END CODE HERE ***
 
 if __name__ == '__main__':

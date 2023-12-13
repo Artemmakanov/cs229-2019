@@ -1,2 +1,22 @@
 \begin{answer}
+
+\begin{equation*}
+\ell(\theta) = - \log(\prod_{i=1}^\nexp b(y^{(i)} e^{\eta y^{(i)} - a(\eta)})) = - \log(\prod_{i=1}^\nexp b(y^{(i)})) - \log(\prod_{i=1}^\nexp e^{\eta y^{(i)} - a(\eta)}) 
+\end{equation*}
+
+\begin{equation*}
+\nabla_\theta \ell(\theta) = - \sum_{i=1}^\nexp x^{(i)} (y^{(i)} - \frac{\partial}{\partial\eta}a(\eta)) x^{(i)} = - \sum_{i=1}^\nexp x^{(i)} (y^{(i)} - \frac{\partial}{\partial\eta}a(\eta)))
+\end{equation*}
+
+\begin{equation*}
+\nabla_\theta \frac{\partial}{\partial\eta}\ell(\eta_{j})) = - \sum_{i=1}^\nexp x_{j}^{(i)} (-Var[y|x^{(i)}; \theta]) * x^{(i)} = \sum_{i=1}^\nexp x_{j}^{(i)} (Var[y|x^{(i)}; \theta]) * x^{(i)}
+\end{equation*}
+
+
+\begin{equation*}
+z^THz = \sum_{i=1}^\nexp Var[y|x^{(i)}; \theta] * (x^{(i)}*z)^{2} \ge 0
+\end{equation*}
+
+
+
 \end{answer}

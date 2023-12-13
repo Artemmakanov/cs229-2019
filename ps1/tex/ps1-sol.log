@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.10)  10 DEC 2023 20:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2023.6.10)  13 DEC 2023 23:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -726,40 +726,101 @@ Package pdftex.def Info: gda_pred_2-plot.png  used on input line 3.
 (./linearclass/07-plot-ds2.tex) (./linearclass/07-plot-ds2-sol.tex)
 (./linearclass/08-transform.tex) (./linearclass/08-transform-sol.tex) [6 <./gda
 _pred_1-plot.png> <./gda_pred_2-plot.png>]) [7] (./posonly/00-main.tex
-(./posonly/01-train-t-labels.tex) (./posonly/01-train-t-labels-sol.tex)
+(./posonly/01-train-t-labels.tex) (./posonly/01-train-t-labels-sol.tex
+<posonly_true_pred-plot.png, id=53, 462.528pt x 346.896pt>
+File: posonly_true_pred-plot.png Graphic file (type png)
+<use posonly_true_pred-plot.png>
+Package pdftex.def Info: posonly_true_pred-plot.png  used on input line 2.
+(pdftex.def)             Requested size: 323.76738pt x 242.82553pt.
+)
 (./posonly/02-train-y-labels.tex [8
 
-]) (./posonly/02-train-y-labels-sol.tex)
-(./posonly/03-bayes-warm-up.tex) (./posonly/03-bayes-warm-up-sol.tex)
-(./posonly/04-constant.tex) (./posonly/04-constant-sol.tex)
-(./posonly/05-estimate-alpha.tex [9]) (./posonly/05-estimate-alpha-sol.tex)
-(./posonly/06-plot.tex) (./posonly/06-plot-sol.tex)) [10]
-(./poisson/00-main.tex (./poisson/01-exponential.tex)
+]) (./posonly/02-train-y-labels-sol.tex
+<posonly_naive_pred-plot.png, id=58, 462.528pt x 346.896pt>
+File: posonly_naive_pred-plot.png Graphic file (type png)
+<use posonly_naive_pred-plot.png>
+Package pdftex.def Info: posonly_naive_pred-plot.png  used on input line 2.
+(pdftex.def)             Requested size: 323.76738pt x 242.82553pt.
+)
+(./posonly/03-bayes-warm-up.tex [9 <./posonly_true_pred-plot.png>])
+(./posonly/03-bayes-warm-up-sol.tex
+Overfull \hbox (95.89911pt too wide) detected at line 5
+\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t[] \OT1/cmr/m/n/10 = 1 \OM
+S/cmsy/m/n/10 j \OML/cmm/m/it/10 y[] \OT1/cmr/m/n/10 = 1\OML/cmm/m/it/10 ; x[]\
+OT1/cmr/m/n/10 ) = [] =
+ []
+
+) (./posonly/04-constant.tex) (./posonly/04-constant-sol.tex [10 <./posonly_nai
+ve_pred-plot.png>]) (./posonly/05-estimate-alpha.tex)
+(./posonly/05-estimate-alpha-sol.tex
+Overfull \hbox (12.30968pt too wide) detected at line 5
+\OML/cmm/m/it/10 h\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 ) = \OML
+/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y[] \OT1/cmr/m/n/10 = 1 \OMS/cm
+sy/m/n/10 j \OML/cmm/m/it/10 t[] \OT1/cmr/m/n/10 = 1\OML/cmm/m/it/10 ; x[]\OT1/
+cmr/m/n/10 )\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t[] \OT1/cmr/m/
+n/10 = 1 \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 ) + \OML/cmm/m/
+it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y[] \OT1/cmr/m/n/10 = 1 \OMS/cmsy/m/n/
+10 j \OML/cmm/m/it/10 t[] \OT1/cmr/m/n/10 = 0\OML/cmm/m/it/10 ; x[]\OT1/cmr/m/n
+/10 )\OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t[] \OT1/cmr/m/n/10 = 
+0 \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 ) =
+ []
+
+) (./posonly/06-plot.tex [11]) (./posonly/06-plot-sol.tex
+<posonly_adjusted_pred-plot.png, id=73, 462.528pt x 346.896pt>
+File: posonly_adjusted_pred-plot.png Graphic file (type png)
+<use posonly_adjusted_pred-plot.png>
+Package pdftex.def Info: posonly_adjusted_pred-plot.png  used on input line 3.
+(pdftex.def)             Requested size: 323.76738pt x 242.82553pt.
+)) [12 <./posonly_adjusted_pred-plot.png>] (./poisson/00-main.tex (./poisson/01
+-exponential.tex)
 (./poisson/01-exponential-sol.tex) (./poisson/02-response-fn.tex)
 (./poisson/02-response-fn-sol.tex) (./poisson/03-gd-update.tex)
-(./poisson/03-gd-update-sol.tex) (./poisson/04-regression.tex) [11
+(./poisson/03-gd-update-sol.tex [13
+
+]) (./poisson/04-regression.tex)
+(./poisson/04-regression-sol.tex
+<poisson_predplot.png, id=82, 462.528pt x 346.896pt>
+File: poisson_predplot.png Graphic file (type png)
+<use poisson_predplot.png>
+Package pdftex.def Info: poisson_predplot.png  used on input line 3.
+(pdftex.def)             Requested size: 323.76738pt x 242.82553pt.
+)) [14 <./poisson_predplot.png>]
+(./glmconvexity/00-main.tex (./glmconvexity/01-mean.tex)
+(./glmconvexity/01-mean-sol.tex) (./glmconvexity/02-var.tex)
+(./glmconvexity/02-var-sol.tex [15
 
 ]
-(./poisson/04-regression-sol.tex)) [12] (./glmconvexity/00-main.tex
-(./glmconvexity/01-mean.tex) (./glmconvexity/01-mean-sol.tex)
-(./glmconvexity/02-var.tex) (./glmconvexity/02-var-sol.tex)
-(./glmconvexity/03-hessian.tex) (./glmconvexity/03-hessian-sol.tex) [13
+Overfull \hbox (12.14546pt too wide) detected at line 17
+[] \OML/cmm/m/it/10 y[]b\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 )\OM
+L/cmm/m/it/10 exp\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^Qy \OMS/cmsy/m/n/10 ^^@ \O
+ML/cmm/m/it/10 a\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 ^^Q\OT1/cmr/m/n/10 ))\OML/cmm
+/m/it/10 dy \OMS/cmsy/m/n/10 ^^@ []\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 a\OT1/cmr/
+m/n/10 (\OML/cmm/m/it/10 ^^Q\OT1/cmr/m/n/10 )) [] \OML/cmm/m/it/10 yb\OT1/cmr/m
+/n/10 (\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 exp\OT1/cmr/m/n/10 (
+\OML/cmm/m/it/10 ^^Qy \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 a\OT1/cmr/m/n/10 (\
+OML/cmm/m/it/10 ^^Q\OT1/cmr/m/n/10 ))\OML/cmm/m/it/10 dy \OT1/cmr/m/n/10 = \U/m
+sb/m/n/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 y[]\OT1/cmr/m/n/10 ; \OML/cmm/m/it
+/10 ^^Q\OT1/cmr/m/n/10 ] \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 (\U/msb/m/n/10 E\
+OT1/cmr/m/n/10 [\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 ; \OML/cmm/m/it/10 ^^Q\OT1/cm
+r/m/n/10 ])[] = \OML/cmm/m/it/10 Var\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 y\OT1/cmr
+/m/n/10 ; \OML/cmm/m/it/10 ^^Q\OT1/cmr/m/n/10 ]
+ []
 
-])
-[14] (./featuremaps/00-main.tex (./featuremaps/01-degree-3-math.tex)
+) (./glmconvexity/03-hessian.tex) (./glmconvexity/03-hessian-sol.tex)) [16]
+(./featuremaps/00-main.tex (./featuremaps/01-degree-3-math.tex)
 (./featuremaps/01-degree-3-math-sol.tex) (./featuremaps/02-degree-3-code.tex
-[15
+[17
 
 ]) (./featuremaps/02-degree-3-code-sol.tex)
 (./featuremaps/03-degree-k-code.tex) (./featuremaps/03-degree-k-code-sol.tex)
 (./featuremaps/04-other-features.tex) (./featuremaps/04-other-features-sol.tex)
-(./featuremaps/05-overfitting.tex [16]) (./featuremaps/05-overfitting-sol.tex))
-[17] (./ps1-sol.aux) ) 
+(./featuremaps/05-overfitting.tex [18]) (./featuremaps/05-overfitting-sol.tex))
+[19] (./ps1-sol.aux) ) 
 Here is how much of TeX's memory you used:
- 16883 strings out of 481239
- 317745 string characters out of 5920377
- 529345 words of memory out of 5000000
- 31626 multiletter control sequences out of 15000+600000
+ 16907 strings out of 481239
+ 318439 string characters out of 5920377
+ 529346 words of memory out of 5000000
+ 31646 multiletter control sequences out of 15000+600000
  541037 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  65i,15n,64p,944b,566s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -784,10 +845,10 @@ ts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-su
 per/sfrm1000.pfb>
-Output written on ps1-sol.pdf (17 pages, 328590 bytes).
+Output written on ps1-sol.pdf (19 pages, 396213 bytes).
 PDF statistics:
- 157 PDF objects out of 1000 (max. 8388607)
- 107 compressed objects within 2 object streams
+ 172 PDF objects out of 1000 (max. 8388607)
+ 112 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

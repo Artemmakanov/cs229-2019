@@ -20,7 +20,6 @@ def main(train_path, valid_path, save_path):
     # Use np.savetxt to save predictions on eval set to save_path
     clf = LogisticRegression()
     clf.fit(x_train, y_train)
-    print(clf.theta)
     util.plot(x_eval, y_eval, clf.theta, f'{save_path.split(".")[0]}-plot')
     y_pred = clf.predict(x_eval)
     np.savetxt(save_path, y_pred) 
@@ -36,7 +35,7 @@ class LogisticRegression:
         > clf.predict(x_eval)
         10000
     """
-    def __init__(self, step_size=0.01, max_iter=1000, eps=1e-5,
+    def __init__(self, step_size=0.01, max_iter=10000, eps=1e-5,
                  theta_0=None, verbose=True):
         """
         Args:
@@ -63,26 +62,27 @@ class LogisticRegression:
         # *** START CODE HERE ***
         self.theta = np.zeros(self.dim + 1)
         
-        for i in tqdm(range(self.max_iter), disable=not self.verbose):
-
-            dJ = sum(x[j]*(y[j] - self.sigmoid(self.theta, x[j]))
-                    for j in range(len(x)))
+        for i in range(self.max_iter):
             
-            J = sum(y[j]*np.log(self.sigmoid(self.theta, x[j])) + \
-                (1-y[j])*np.log(1-self.sigmoid(self.theta, x[j]))
-                for j in range(len(x)))
+            preds = self._sigmoid(x.dot(self.theta))
+            dJ = (x.T * (preds - y)).sum(axis=1)
+    
+            diag = np.diag(preds * (1. - preds))
+            H = x.T.dot(diag).dot(x)
 
-            dtheta = self.step_size * dJ / J 
+
+            dtheta = self.step_size * np.linalg.inv(H) @ dJ 
             self.theta = self.theta - dtheta
+            if self.verbose:
+                print(i, self.theta)
             if np.linalg.norm(dtheta) < self.eps:
                 break
+         # *** END CODE HERE ***
 
+    
+    def _sigmoid(self, z):
+        return 1 / (1 + np.exp(-z))
 
-        # *** END CODE HERE ***
-
-    @staticmethod
-    def sigmoid(theta, x):
-        return 1 / (1 + np.exp(-np.dot(theta, x)) + 1e-8)
 
     def predict(self, x):
         """Make a prediction given new inputs x.
@@ -94,12 +94,7 @@ class LogisticRegression:
             Outputs of shape (n_examples,).
         """
         # *** START CODE HERE ***
-        preds = np.array([])
-        for i in range(len(x)):
-            pred = self.sigmoid(self.theta, x[i]) > 0.5
-            preds = np.append(preds, pred)
-
-        return preds
+        return self._sigmoid(self.theta.T * x) > 0.5
         # *** END CODE HERE ***
 
 if __name__ == '__main__':

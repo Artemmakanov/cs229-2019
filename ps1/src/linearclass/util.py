@@ -48,8 +48,8 @@ def load_dataset(csv_path, label_col='y', add_intercept=False):
     # Load features and labels
     x_cols = [i for i in range(len(headers)) if headers[i].startswith('x')]
     l_cols = [i for i in range(len(headers)) if headers[i] == label_col]
-    inputs = np.loadtxt(csv_path, delimiter=',', skiprows=1, usecols=x_cols)
-    labels = np.loadtxt(csv_path, delimiter=',', skiprows=1, usecols=l_cols)
+    inputs = np.loadtxt(csv_path, delimiter=',', skiprows=1, usecols=x_cols, dtype = np.float32)
+    labels = np.loadtxt(csv_path, delimiter=',', skiprows=1, usecols=l_cols, dtype = np.float32)
 
     if inputs.ndim == 1:
         inputs = np.expand_dims(inputs, -1)

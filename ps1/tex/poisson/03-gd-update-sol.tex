@@ -1,2 +1,17 @@
 \begin{answer}
+
+\begin{equation*}
+\log p(y^{(i)} | x^{(i)}; \theta) = \log(\frac{e^{-\lambda} \lambda^{y^{(i)}}}{y^{(i)}!}) = 
+y^{(i)}\log(y^{(i)}!)e^{\theta^Tx^{(i)}}\theta^Tx^{(i)}
+\end{equation*}
+
+\begin{equation*}
+\nabla_\theta \sum_{i=1}^\nexp(\log p(y^{(i)} | x^{(i)}; \theta)) = \sum_{i=1}^\nexp y^{(i)}\log(y^{(i)}!) e^{\theta^Tx^{(i)}} * x^{(i)} (1 + \theta^Tx^{(i)})
+\end{equation*}
+
+\begin{equation*}
+\theta = \theta + \alpha \nabla_\theta \sum_{i=1}^\nexp(\log p(y^{(i)} | x^{(i)}; \theta)) 
+\end{equation*}
+
+
 \end{answer}
