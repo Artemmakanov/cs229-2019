@@ -1,2 +1,15 @@
 \begin{answer}
+\begin{enumerate}
+
+\item $
+\theta^{(i)} = \alpha \sum_{k=1}^{i} (y^{(i)} - h_{\theta^{(k-1)}}(x^{(k)})) \phi(x^{(k)}) =  \sum_{k=1}^{i} \beta_k \phi(x^{(k)})
+$
+\item $
+ h_{\theta^{(i)}}(x^{(i+1)}) = g((\theta^{(i)})^{T} \phi(x^{(i)})) =g( \sum_{k=1}^{i} \beta_k (\phi(x^{(k)})) ^T \beta_k \phi(x^{(i+1)}))
+$
+\item $
+\beta_{i+1} = \alpha(y^{(i+1)} -g( \sum_{k=1}^{i} \beta_k (\phi(x^{(k)})) ^T \beta_k \phi(x^{(i+1)}))
+$
+
+\end{enumerate}
 \end{answer}
