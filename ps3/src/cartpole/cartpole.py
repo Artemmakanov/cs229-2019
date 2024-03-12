@@ -3,6 +3,8 @@ CS 229 Machine Learning
 Question: Reinforcement Learning - The Inverted Pendulum
 """
 from __future__ import division, print_function
+from collections import defaultdict
+
 from env import CartPole, Physics
 import matplotlib.pyplot as plt
 import numpy as np
@@ -101,6 +103,14 @@ def initialize_mdp_data(num_states):
     """
 
     # *** START CODE HERE ***
+
+    V = np.random.uniform(0,0.1,num_states)
+    P = defaultdict(float)
+    for s in range(num_states):
+        for a in (0,1):
+            P[(s,a)] = 1/num_states
+
+    return V, P
     # *** END CODE HERE ***
 
 def choose_action(state, mdp_data):
@@ -117,6 +127,16 @@ def choose_action(state, mdp_data):
     """
 
     # *** START CODE HERE ***
+    V, P = mdp_data
+    num_states = len(V)
+
+    a_values = []
+    for a in (0,1):
+        value = sum(V[s]* P[(s,a)] for s in range(num_states))
+        a_values.append((a, value))
+
+    a, _ = sorted(a_values, key=lambda x: -x[1])
+    return a
     # *** END CODE HERE ***
 
 def update_mdp_transition_counts_reward_counts(mdp_data, state, action, new_state, reward):
@@ -140,6 +160,7 @@ def update_mdp_transition_counts_reward_counts(mdp_data, state, action, new_stat
     """
 
     # *** START CODE HERE ***
+    
     # *** END CODE HERE ***
 
     # This function does not return anything
