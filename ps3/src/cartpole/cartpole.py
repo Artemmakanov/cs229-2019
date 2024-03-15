@@ -105,12 +105,27 @@ def initialize_mdp_data(num_states):
     # *** START CODE HERE ***
 
     V = np.random.uniform(0,0.1,num_states)
-    P = defaultdict(float)
+    S2R = [[]]*num_states
+    P_numenators = {}
+    P_denumenators = {}
+    P_numenators_session = {}
+    P_denumenators_session = {}
     for s in range(num_states):
         for a in (0,1):
-            P[(s,a)] = 1/num_states
+            P_numenators[(s,a)] = np.ones(num_states)
+            P_denumenators[(s,a)] = num_states
 
-    return V, P
+            P_numenators_session[(s,a)] = np.zeros(num_states)
+            P_denumenators_session[(s,a)] = 0
+
+    return {
+        'V': V, 
+        'S2R': S2R, 
+        'P_numenators': P_numenators,
+        'P_denumenators': P_denumenators,
+        'P_numenators_session': P_numenators_session,
+        'P_denumenators_session': P_denumenators_session
+    }
     # *** END CODE HERE ***
 
 def choose_action(state, mdp_data):
@@ -127,16 +142,11 @@ def choose_action(state, mdp_data):
     """
 
     # *** START CODE HERE ***
-    V, P = mdp_data
-    num_states = len(V)
-
-    a_values = []
+    values = np.zeros(2)
     for a in (0,1):
-        value = sum(V[s]* P[(s,a)] for s in range(num_states))
-        a_values.append((a, value))
-
-    a, _ = sorted(a_values, key=lambda x: -x[1])
-    return a
+        values[a] = sum(mdp_data['V'] *mdp_data['P_numenators'][(state, a)] / mdp_data['P_denumenators'][(state, a)])
+    
+    return np.argsort(-values)[0]
     # *** END CODE HERE ***
 
 def update_mdp_transition_counts_reward_counts(mdp_data, state, action, new_state, reward):
@@ -160,7 +170,10 @@ def update_mdp_transition_counts_reward_counts(mdp_data, state, action, new_stat
     """
 
     # *** START CODE HERE ***
-    
+    mdp_data['S2R'][state].append(reward)
+    mdp_data['P_numenators_session'][(state, action)][new_state] += 1
+    mdp_data['P_denumenators_session'][(state, action)] += 1
+
     # *** END CODE HERE ***
 
     # This function does not return anything
@@ -184,6 +197,17 @@ def update_mdp_transition_probs_reward(mdp_data):
     """
 
     # *** START CODE HERE ***
+
+    num_states = len(mdp_data['V'])
+    # print(mdp_data['V'])
+    # print(num_states)
+    for s in range(num_states):
+        for a in (0,1):
+            mdp_data['P_numenators'][(s,a)] += mdp_data['P_numenators_session'][(s,a)]
+            mdp_data['P_denumenators'][(s,a)] += mdp_data['P_denumenators_session'][(s,a)]
+
+            mdp_data['P_numenators_session'][(s,a)] = np.zeros(num_states)
+            mdp_data['P_denumenators_session'][(s,a)] = 0
     # *** END CODE HERE ***
 
     # This function does not return anything
@@ -211,6 +235,28 @@ def update_mdp_value(mdp_data, tolerance, gamma):
     """
 
     # *** START CODE HERE ***
+    num_states = len(mdp_data['V'])
+
+
+    # print('S2R', mdp_data['S2R'])
+    # print('V', mdp_data['V'])
+    # print('P_numenators', mdp_data['P_numenators'])
+    V_prev = None
+    iterations = 0
+    while V_prev is None or not np.linalg.norm(mdp_data['V'] - V_prev) < tolerance:
+        V_prev = mdp_data['V'].copy()
+        for s in range(num_states):
+            values = []
+            for a in (0,1):
+                value = sum(mdp_data['V'][s_]*mdp_data['P_numenators'][(s, a)][s_] / \
+                            mdp_data['P_denumenators'][(s, a)] for s_ in range(num_states))
+                values.append(value)
+            
+            mdp_data['V'][s] = np.mean(mdp_data['S2R'][s]) + max(values) * gamma
+        iterations += 1
+
+    mdp_data['S2R'] = [[]]*num_states
+    return iterations == 1
     # *** END CODE HERE ***
 
 def main():
@@ -264,6 +310,8 @@ def main():
 
         action = choose_action(state, mdp_data)
 
+        # print(action)
+        
         # Get the next state by simulating the dynamics
         state_tuple = cart_pole.simulate(action, state_tuple)
         # x, x_dot, theta, theta_dot = state_tuple
@@ -274,7 +322,7 @@ def main():
         # Get the state number corresponding to new state vector
         new_state = cart_pole.get_state(state_tuple)
         # if display_started == 1:
-        #     cart_pole.show_cart(state_tuple, pause_time)
+            # cart_pole.show_cart(state_tuple, pause_time)
 
         # reward function to use - do not change this!
         if new_state == NUM_STATES - 1:
@@ -287,11 +335,10 @@ def main():
         # Recompute MDP model whenever pole falls
         # Compute the value function V for the new model
         if new_state == NUM_STATES - 1:
-
+            
             update_mdp_transition_probs_reward(mdp_data)
 
             converged_in_one_iteration = update_mdp_value(mdp_data, TOLERANCE, GAMMA)
-
             if converged_in_one_iteration:
                 consecutive_no_learning_trials = consecutive_no_learning_trials + 1
             else:
@@ -304,6 +351,7 @@ def main():
             if num_failures >= max_failures:
                 break
             print('[INFO] Failure number {}'.format(num_failures))
+            print(time - time_at_start_of_current_trial)
             time_steps_to_failure.append(time - time_at_start_of_current_trial)
             # time_steps_to_failure[num_failures] = time - time_at_start_of_current_trial
             time_at_start_of_current_trial = time
