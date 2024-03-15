@@ -105,22 +105,31 @@ def initialize_mdp_data(num_states):
     # *** START CODE HERE ***
 
     V = np.random.uniform(0,0.1,num_states)
-    S2R = [[]]*num_states
-    P_numenators = {}
-    P_denumenators = {}
-    P_numenators_session = {}
-    P_denumenators_session = {}
-    for s in range(num_states):
-        for a in (0,1):
-            P_numenators[(s,a)] = np.ones(num_states)
-            P_denumenators[(s,a)] = num_states
+    S2R_numenators = np.zeros(num_states)
+    S2R_denumenators = np.zeros(num_states)
+    # P_numenators = {}
+    # P_denumenators = {}
+    # P_numenators_session = {}
+    # P_denumenators_session = {}
 
-            P_numenators_session[(s,a)] = np.zeros(num_states)
-            P_denumenators_session[(s,a)] = 0
+    P_numenators = np.ones((num_states, 2, num_states))
+    P_denumenators = np.ones((num_states, 2)) * num_states
+
+    P_numenators_session = np.zeros((num_states, 2, num_states))
+    P_denumenators_session = np.zeros((num_states, 2))
+
+    # for s in range(num_states):
+    #     for a in (0,1):
+    #         P_numenators[(s,a)] = np.ones(num_states)
+    #         P_denumenators[(s,a)] = num_states
+
+    #         P_numenators_session[(s,a)] = np.zeros(num_states)
+    #         P_denumenators_session[(s,a)] = 0
 
     return {
         'V': V, 
-        'S2R': S2R, 
+        'S2R_numenators': S2R_numenators, 
+        'S2R_denumenators': S2R_denumenators,
         'P_numenators': P_numenators,
         'P_denumenators': P_denumenators,
         'P_numenators_session': P_numenators_session,
@@ -142,10 +151,11 @@ def choose_action(state, mdp_data):
     """
 
     # *** START CODE HERE ***
-    values = np.zeros(2)
-    for a in (0,1):
-        values[a] = sum(mdp_data['V']*mdp_data['P_numenators'][(state, a)]) / mdp_data['P_denumenators'][(state, a)]
-    
+    # values = np.zeros(2)
+    # for a in (0,1):
+        # values[a] = sum(mdp_data['V']*mdp_data['P_numenators'][(state, a)]) / mdp_data['P_denumenators'][(state, a)]
+
+    values = np.sum(mdp_data['P_numenators'][state, :, :] * mdp_data['V'], axis=1)/ mdp_data['P_denumenators'][state, :]
     return np.argsort(-values)[0]
     # *** END CODE HERE ***
 
@@ -170,9 +180,10 @@ def update_mdp_transition_counts_reward_counts(mdp_data, state, action, new_stat
     """
 
     # *** START CODE HERE ***
-    mdp_data['S2R'][state].append(reward)
-    mdp_data['P_numenators_session'][(state, action)][new_state] += 1
-    mdp_data['P_denumenators_session'][(state, action)] += 1
+    mdp_data['S2R_numenators'][new_state] += reward
+    mdp_data['S2R_denumenators'][new_state] += 1
+    mdp_data['P_numenators_session'][state, action, new_state] += 1
+    mdp_data['P_denumenators_session'][state, action] += 1
 
     # *** END CODE HERE ***
 
@@ -199,15 +210,12 @@ def update_mdp_transition_probs_reward(mdp_data):
     # *** START CODE HERE ***
 
     num_states = len(mdp_data['V'])
-    # print(mdp_data['V'])
-    # print(num_states)
-    for s in range(num_states):
-        for a in (0,1):
-            mdp_data['P_numenators'][(s,a)] += mdp_data['P_numenators_session'][(s,a)]
-            mdp_data['P_denumenators'][(s,a)] += mdp_data['P_denumenators_session'][(s,a)]
+    
+    mdp_data['P_numenators'] += mdp_data['P_numenators_session']
+    mdp_data['P_denumenators'] += mdp_data['P_denumenators_session']
 
-            mdp_data['P_numenators_session'][(s,a)] = np.zeros(num_states)
-            mdp_data['P_denumenators_session'][(s,a)] = 0
+    mdp_data['P_numenators_session'] = np.zeros((num_states, 2, num_states))
+    mdp_data['P_denumenators_session'] = np.zeros((num_states, 2))
     # *** END CODE HERE ***
 
     # This function does not return anything
@@ -237,25 +245,24 @@ def update_mdp_value(mdp_data, tolerance, gamma):
     # *** START CODE HERE ***
     num_states = len(mdp_data['V'])
 
-
-    # print('S2R', mdp_data['S2R'])
-    # print('V', mdp_data['V'])
-    # print('P_numenators', mdp_data['P_numenators'])
     iterations = 0
     while True:
         V_prev = mdp_data['V'].copy()
-        for s in range(num_states):
-            values = np.zeros(2)
-            for a in (0,1):
-                values[a] = sum(mdp_data['V']*mdp_data['P_numenators'][(s, a)] ) / mdp_data['P_denumenators'][(s, a)]
-            
-            mdp_data['V'][s] = np.mean(mdp_data['S2R'][s]) + np.max(values) * gamma
+
+        values = np.sum(mdp_data['P_numenators'] * mdp_data['V'], axis=2) / mdp_data['P_denumenators']
+
+        mask = mdp_data['S2R_denumenators'] > 0
+        mdp_data_s2r_num_nz = mdp_data['S2R_numenators'][mask]
+        mdp_data_s2r_den_nz = mdp_data['S2R_denumenators'][mask]
+        mdp_data['V'] = np.max(values, axis=1) * gamma
+        mdp_data['V'][mask] += mdp_data_s2r_num_nz / mdp_data_s2r_den_nz
         iterations += 1
 
-        if sum((mdp_data['V'] - V_prev) ** 2) < tolerance:
+        if np.linalg.norm((mdp_data['V'] - V_prev)) < tolerance:
             break
 
-    mdp_data['S2R'] = [[]]*num_states
+    mdp_data['S2R_numenators'] = np.zeros(num_states)
+    mdp_data['S2R_denumenators'] = np.zeros(num_states)
     return iterations == 1
     # *** END CODE HERE ***
 
@@ -309,8 +316,6 @@ def main():
     while consecutive_no_learning_trials < NO_LEARNING_THRESHOLD:
 
         action = choose_action(state, mdp_data)
-
-        # print(action)
         
         # Get the next state by simulating the dynamics
         state_tuple = cart_pole.simulate(action, state_tuple)
@@ -335,7 +340,6 @@ def main():
         # Recompute MDP model whenever pole falls
         # Compute the value function V for the new model
         if new_state == NUM_STATES - 1:
-            
             update_mdp_transition_probs_reward(mdp_data)
 
             converged_in_one_iteration = update_mdp_value(mdp_data, TOLERANCE, GAMMA)
