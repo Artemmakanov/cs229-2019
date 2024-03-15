@@ -144,7 +144,7 @@ def choose_action(state, mdp_data):
     # *** START CODE HERE ***
     values = np.zeros(2)
     for a in (0,1):
-        values[a] = sum(mdp_data['V'] *mdp_data['P_numenators'][(state, a)] / mdp_data['P_denumenators'][(state, a)])
+        values[a] = sum(mdp_data['V']*mdp_data['P_numenators'][(state, a)]) / mdp_data['P_denumenators'][(state, a)]
     
     return np.argsort(-values)[0]
     # *** END CODE HERE ***
@@ -241,19 +241,19 @@ def update_mdp_value(mdp_data, tolerance, gamma):
     # print('S2R', mdp_data['S2R'])
     # print('V', mdp_data['V'])
     # print('P_numenators', mdp_data['P_numenators'])
-    V_prev = None
     iterations = 0
-    while V_prev is None or not np.linalg.norm(mdp_data['V'] - V_prev) < tolerance:
+    while True:
         V_prev = mdp_data['V'].copy()
         for s in range(num_states):
-            values = []
+            values = np.zeros(2)
             for a in (0,1):
-                value = sum(mdp_data['V'][s_]*mdp_data['P_numenators'][(s, a)][s_] / \
-                            mdp_data['P_denumenators'][(s, a)] for s_ in range(num_states))
-                values.append(value)
+                values[a] = sum(mdp_data['V']*mdp_data['P_numenators'][(s, a)] ) / mdp_data['P_denumenators'][(s, a)]
             
-            mdp_data['V'][s] = np.mean(mdp_data['S2R'][s]) + max(values) * gamma
+            mdp_data['V'][s] = np.mean(mdp_data['S2R'][s]) + np.max(values) * gamma
         iterations += 1
+
+        if sum((mdp_data['V'] - V_prev) ** 2) < tolerance:
+            break
 
     mdp_data['S2R'] = [[]]*num_states
     return iterations == 1
