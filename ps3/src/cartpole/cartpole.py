@@ -258,7 +258,7 @@ def update_mdp_value(mdp_data, tolerance, gamma):
         mdp_data['V'][mask] += mdp_data_s2r_num_nz / mdp_data_s2r_den_nz
         iterations += 1
 
-        if np.linalg.norm((mdp_data['V'] - V_prev)) < tolerance:
+        if np.linalg.norm((mdp_data['V'] - V_prev), ord=1) < tolerance:
             break
 
     mdp_data['S2R_numenators'] = np.zeros(num_states)
@@ -300,8 +300,8 @@ def main():
     # `state` is the number given to this state, you only need to consider
     # this representation of the state
     state = cart_pole.get_state(state_tuple)
-    # if min_trial_length_to_start_display == 0 or display_started == 1:
-    #     cart_pole.show_cart(state_tuple, pause_time)
+    if min_trial_length_to_start_display == 0 or display_started == 1:
+        cart_pole.show_cart(state_tuple, pause_time)
 
     mdp_data = initialize_mdp_data(NUM_STATES)
 
@@ -326,8 +326,8 @@ def main():
 
         # Get the state number corresponding to new state vector
         new_state = cart_pole.get_state(state_tuple)
-        # if display_started == 1:
-            # cart_pole.show_cart(state_tuple, pause_time)
+        if display_started == 1:
+            cart_pole.show_cart(state_tuple, pause_time)
 
         # reward function to use - do not change this!
         if new_state == NUM_STATES - 1:

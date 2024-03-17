@@ -1,2 +1,4 @@
 \begin{answer}
+$$ \arg\min_\theta \KL(\hat{P}\|P_\theta)  =\sum_{i=1}^{\nexp} \hat{P}(x^{(i)}) \log(\frac{ \hat{P}(x^{(i)})}{P_\theta(x^{(i)})}) = -\sum_x \frac{1}{n} \log(n p_\theta(x^{(i)})) $$
+$$\arg\min_\theta  -\sum_x \frac{1}{n} \log(n p_\theta(x^{(i)})) = \arg\max_\theta \sum_{i=1}^{\nexp} \log P_\theta(x^{(i)})$$
 \end{answer}
