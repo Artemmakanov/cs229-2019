@@ -30,6 +30,22 @@ def main(is_semi_supervised, trial_num):
     # phi should be a numpy array of shape (K,)
     # (3) Initialize the w values to place equal probability on each Gaussian
     # w should be a numpy array of shape (m, K)
+    n, d = x.shape
+    indices = np.array(range(n))
+    np.random.shuffle(indices)
+    mu = np.zeros((K, d))
+    sigma = np.zeros((K, d, d))
+    batch_size = len(x) // (K - 1)
+    for b in range(K):
+        group = x[batch_size*b: batch_size*(b+1)]
+        mu[b] = group.mean(axis=0)
+        sigma[b] = group.T @ group - mu[b].T @ mu[b]
+
+    phi = np.ones(K) / K
+
+    w = np.ones(K) / K * np.ones((n, K))
+
+
     # *** END CODE HERE ***
 
     if is_semi_supervised:
@@ -66,13 +82,14 @@ def run_em(x, w, phi, mu, sigma):
     # No need to change any of these parameters
     eps = 1e-3  # Convergence threshold
     max_iter = 1000
+    delta = 1e-9
+    n, d = x.shape
 
     # Stop when the absolute change in log-likelihood is < eps
     # See below for explanation of the convergence criterion
     it = 0
     ll = prev_ll = None
     while it < max_iter and (prev_ll is None or np.abs(ll - prev_ll) >= eps):
-        pass  # Just a placeholder for the starter code
         # *** START CODE HERE
         # (1) E-step: Update your estimates in w
         # (2) M-step: Update the model parameters phi, mu, and sigma
@@ -80,7 +97,41 @@ def run_em(x, w, phi, mu, sigma):
         # By log-likelihood, we mean `ll = sum_x[log(sum_z[p(x|z) * p(z)])]`.
         # We define convergence by the first iteration where abs(ll - prev_ll) < eps.
         # Hint: For debugging, recall part (a). We showed that ll should be monotonically increasing.
+        print(f"ll: {ll}")
+        # print(f"w: {w}")
+        # print(f"phi: {phi}")
+        # print(f"mu: {mu}")
+        # E
+        for i in range(n):
+            for j in range(d):
+                
+                numenator = 1 / (np.linalg.det(sigma[j])) * np.exp( -(x[i] - mu[j]) @ np.linalg.inv(sigma[j])@(x[i] - mu[j]).T / 2) * phi[j]
+                denominator = 0.
+                for j_ in range(d):
+                    denominator += 1. / (np.linalg.det(sigma[j_])) * np.exp( -(x[i] - mu[j_]) @ np.linalg.inv(sigma[j_]) @ (x[i] - mu[j_]).T / 2) * phi[j_]
+                w[i, j] = numenator / (denominator + delta)
+                # print(f"denominator: {denominator}")
+     
+        # M
+        phi = np.mean(w, axis=0)
+
+        mu = (w.T @ x) / w.sum(axis=0).reshape((K, 1))
+
+        for j in range(d):
+            # phi[j] = np.mean(w[j], axis=0)
+
+            # mu[j] = (w[:, j] @ x) / w[:, j].sum(axis=0)
+
+            sigma[j] = ((w[:, j] * (x - mu[j]).T @ (x - mu[j]))) / w[:, j].sum(axis=0)
+
+        prev_ll = ll
+        ll = 0.
+        for i in range(n):
+            a = np.log(sum(1. / ((2*np.pi)**(d/2)* (np.linalg.det(sigma[j]))) * np.exp( -(x[i] - mu[j])@ np.linalg.inv(sigma[j])@(x[i] - mu[j]).T / 2) * phi[j] for j in range(d)))
+            # print(a)
+            ll += a
         # *** END CODE HERE ***
+        # break
 
     return w
 
