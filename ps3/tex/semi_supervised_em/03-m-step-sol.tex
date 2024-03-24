@@ -20,12 +20,15 @@ $$\hat{\phi} = \frac{\sum_{i=1}^{\nexp} w_j^{(i)} +\alpha \sum_{i=1}^{\tilde{\ne
 Let's find $\hat{\mu}$
 $$\hat{\mu} =  \arg\max_{\mu} [- \sum_{i=1}^{\nexp} \sum_{j=1}^{K}  w_j^{(i)} \frac{(x^{(i)} - \mu_j)^T\Sigma_j^{-1}(x^{(i)} - \mu_j)}{2}  - \alpha \sum_{i=1}^{\tilde{\nexp}} \sum_{j=1}^{K} \frac{(\tilde{x}^{(i)} - \mu_{j})^T\Sigma_{j}^{-1}(\tilde{x}^{(i)} - \mu_{j})}{2} 1\{\tilde{z}^{(i)}=j\}] = $$
 $$\nabla_{\mu_j}[\sum_{i=1}^{\nexp} \sum_{j=1}^{K} w_j^{(i)} (2\Sigma_j^{-1}) (x^{(i)} - \mu_j) +\alpha \sum_{i=1}^{\tilde{n}} \sum_{j=1}^{K}  1\{\tilde{z}^{(i)}=j\} (2\Sigma_j^{-1}) (\tilde{x}^{(i)} - \mu_j) ] = 0$$
-$$\sum_{i=1}^{\nexp} w_j^{(i)} x^{(i)} - \sum_{i=1}^{\nexp}  w_j^{(i)} \mu_j +\alpha \sum_{i=1}^{\tilde{n}} \tilde{x}^{(i)} -\alpha \sum_{i=1}^{\tilde{n}} \mu_j \tilde{n} = 0$$
-$$\mu_j = \frac{\sum_{i=1}^{\nexp}  w_j^{(i)} x^{(i)} + \alpha \sum_{i=1}^{\tilde{n}} \tilde{x}^{(i)}}{\sum_{i=1}^{\nexp} w_j^{(i)} + \alpha \tilde{n}}$$
+$$\sum_{i=1}^{\nexp} w_j^{(i)} x^{(i)} - \sum_{i=1}^{\nexp}  w_j^{(i)} \mu_j +\alpha \sum_{i=1}^{\tilde{n}} \tilde{x}^{(i)} 1\{\tilde{z}^{(i)}=j\}-\alpha \mu_j \tilde{n} = 0$$
+$$\mu_j = \frac{\sum_{i=1}^{\nexp}  w_j^{(i)} x^{(i)} + \alpha \sum_{i=1}^{\tilde{n}} \tilde{x}^{(i)}1\{\tilde{z}^{(i)}=j\}}{\sum_{i=1}^{\nexp} w_j^{(i)} + \alpha \tilde{n}}$$
 
 Let's find $\hat{\Sigma}$
-$$\hat{\Sigma} =  \arg\max_{\Sigma} []$$
-
+$$\hat{\Sigma} =  \arg\max_{\Sigma} [- \sum_{i=1}^{\nexp} \sum_{j=1}^{K}  w_j^{(i)} \frac{(x^{(i)} - \mu_j)^T\Sigma_j^{-1}(x^{(i)} - \mu_j)}{2}  - \alpha \sum_{i=1}^{\tilde{\nexp}} \sum_{j=1}^{K} \frac{(\tilde{x}^{(i)} - \mu_{j})^T\Sigma_{j}^{-1}(\tilde{x}^{(i)} - \mu_{j})}{2} 1\{\tilde{z}^{(i)}=j\}]$$ \\
+$$ - \sum_{i=1}^{\nexp} \log(|\Sigma_{z^{(i)}}|)  - \sum_{i=1}^{\tilde{\nexp}} \log(|\Sigma_{\tilde{z}^{(i)}}|)]$$
+$$-\sum_{i=1}^{\nexp} w_j^{(i)} \Sigma_j + \sum_{i=1}^{\nexp} \sum_{j=1}^{K}  w_j^{(i)} (x^{(i)} - \mu_j)(x^{(i)} - \mu_j)^T -  \alpha \sum_{i=1}^{\tilde{\nexp}} \Sigma_j 1\{\tilde{z}^{(i)}= j\} +  $$ \\
+$$\alpha \sum_{i=1}^{\tilde{\nexp}} \sum_{j=1}^{K} (\tilde{x}^{(i)} - \mu_{j})(\tilde{x}^{(i)} - \mu_{j})^T 1\{\tilde{z}^{(i)}=j\}=0$$
+$$\Sigma_j = \frac{ \sum_{i=1}^{\nexp} \sum_{j=1}^{K}  w_j^{(i)} (x^{(i)} - \mu_j)(x^{(i)} - \mu_j)^T + \alpha \sum_{i=1}^{\tilde{\nexp}} \sum_{j=1}^{K} (\tilde{x}^{(i)} - \mu_{j})(\tilde{x}^{(i)} - \mu_{j})^T 1\{\tilde{z}^{(i)}=j\}}{\sum_{i=1}^{\nexp} w_j^{(i)} + \alpha \sum_{i=1}^{\tilde{\nexp}} 1\{\tilde{z}^{(i)}= j\} }$$
 
 
 \end{answer}
