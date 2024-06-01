@@ -1,2 +1,12 @@
 \begin{answer}
+$
+\theta_{MAP} =  \operatorname*{argmax}_\theta  p(y|x, \theta)p(\theta)  = \operatorname*{argmin}_\theta [C_1 + \frac{(X\theta - y)^T(X\theta - y)}{2\sigma^2} + C_2 + \frac{||\theta||_1}{b}] = \\ 
+\operatorname*{argmin}_\theta [||X\theta - y||^2+ \frac{2\sigma^2||\theta||_1}{b}]  = \operatorname*{argmin}_\theta [J(\theta)] \\
+\gamma = \frac{2\sigma^2}{b} $\\ 
+Numerical solution: \\
+$
+\nabla_\theta \frac{1}{2\sigma^2} (X\theta - y)^T (X\theta - y) +  \frac{1}{b} ||\theta||_1  =  0 \\
+X^TX\theta - X^T y + \frac{2\sigma^2}{b}  \nabla_\theta ||\theta||_1   = 0 \\
+\theta := (X^TX)^{-1}[X^Ty - \frac{2\sigma^2}{b}  \nabla_\theta ||\theta||_1 ]
+$
 \end{answer}

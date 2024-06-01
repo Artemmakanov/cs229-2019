@@ -1,12 +1,22 @@
 import math
 
+from typing import NamedTuple
+
 import matplotlib.pyplot as plt
 import numpy as np
 
 import util
 
+class State:
+    def __init__(self, train_x) -> None:
+        n = len(train_x)
 
-def initial_state():
+        self.i = 0
+        self.beta = np.zeros(n)
+        self.train_x = train_x
+
+
+def initial_state(train_x):
     """Return the initial state for the perceptron.
 
     This function computes and then returns the initial state of the perceptron.
@@ -16,6 +26,9 @@ def initial_state():
     """
 
     # *** START CODE HERE ***
+    
+    state = State(train_x)
+    return state
     # *** END CODE HERE ***
 
 
@@ -33,6 +46,10 @@ def predict(state, kernel, x_i):
         Returns the prediction (i.e 0 or 1)
     """
     # *** START CODE HERE ***
+    
+    return sign(state.beta[:state.i].dot(np.array(
+        [kernel(x_i_, x_i) for x_i_ in state.train_x[:state.i]]
+        )))
     # *** END CODE HERE ***
 
 
@@ -47,6 +64,8 @@ def update_state(state, kernel, learning_rate, x_i, y_i):
         y_i: A 0 or 1 indicating the label for a single instance
     """
     # *** START CODE HERE ***
+    state.beta[state.i] = learning_rate * (y_i - predict(state, kernel, x_i))
+    state.i += 1
     # *** END CODE HERE ***
 
 
@@ -96,7 +115,7 @@ def train_perceptron(kernel_name, kernel, learning_rate):
     """
     train_x, train_y = util.load_csv('train.csv')
 
-    state = initial_state()
+    state = initial_state(train_x)
 
     for x_i, y_i in zip(train_x, train_y):
         update_state(state, kernel, learning_rate, x_i, y_i)

@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import linalg as LA
 import matplotlib.pyplot as plt
 import argparse
 
@@ -21,6 +22,9 @@ def softmax(x):
         A 2d numpy float array containing the softmax results of shape batch_size x number_of_classes
     """
     # *** START CODE HERE ***
+    b, n = x.shape
+    exponented = np.exp(x - x.max(axis=1).reshape((b, 1)))
+    return exponented / exponented.sum(axis=1).reshape((b, 1))
     # *** END CODE HERE ***
 
 def sigmoid(x):
@@ -34,6 +38,8 @@ def sigmoid(x):
         A numpy float array containing the sigmoid results
     """
     # *** START CODE HERE ***
+    s = 1 / (1 + np.exp(-x))
+    return s
     # *** END CODE HERE ***
 
 def get_initial_params(input_size, num_hidden, num_output):
@@ -62,6 +68,14 @@ def get_initial_params(input_size, num_hidden, num_output):
     """
 
     # *** START CODE HERE ***
+
+    return {
+        'W1': np.random.normal(size=(input_size, num_hidden)),
+        'b1': np.zeros(num_hidden),
+        'W2': np.random.normal(size=(num_hidden, num_output)),
+        'b2': np.zeros(num_output)
+    }
+
     # *** END CODE HERE ***
 
 def forward_prop(data, labels, params):
@@ -83,6 +97,17 @@ def forward_prop(data, labels, params):
             3. The average loss for these data elements
     """
     # *** START CODE HERE ***
+
+    W1 = params['W1']
+    b1 = params['b1']
+    W2 = params['W2']
+    b2 = params['b2']
+
+    hidden = sigmoid(data @ W1 + b1)
+    output = softmax(hidden @ W2 + b2)
+    cost = -np.mean(labels*np.log(output))
+
+    return hidden, output, cost
     # *** END CODE HERE ***
 
 def backward_prop(data, labels, params, forward_prop_func):
@@ -106,6 +131,20 @@ def backward_prop(data, labels, params, forward_prop_func):
             W1, W2, b1, and b2
     """
     # *** START CODE HERE ***
+    hidden, output, cost = forward_prop_func(data, labels, params)
+    b, _ = data.shape
+    gradW2 = hidden.T.dot(output-labels) / b
+    gradb2 = np.mean(output - labels,axis=0) 
+    gradW1 = data.T.dot((output-labels).dot(params['W2'].T) * hidden * (1-hidden)) / b
+    gradb1 = np.mean((output-labels).dot(params['W2'].T) * hidden * (1-hidden),axis=0) 
+    grad = {}
+    grad['W1'] = gradW1
+    grad['W2'] = gradW2
+    grad['b1'] = gradb1
+    grad['b2'] = gradb2
+
+    return grad
+
     # *** END CODE HERE ***
 
 
@@ -131,6 +170,20 @@ def backward_prop_regularized(data, labels, params, forward_prop_func, reg):
             W1, W2, b1, and b2
     """
     # *** START CODE HERE ***
+
+    hidden, output, cost = forward_prop_func(data, labels, params)
+    b, _ = data.shape
+    gradW2 = hidden.T.dot(output - labels) / b + reg * 2 * params['W2']
+    gradb2 = np.mean(output - labels,axis=0) 
+    gradW1 = data.T.dot((output - labels).dot(params['W2'].T) * hidden * (1-hidden)) / b + reg * 2 * params['W1']
+    gradb1 = np.mean((output - labels).dot(params['W2'].T) * hidden * (1-hidden),axis=0) 
+    grad = {}
+    grad['W1'] = gradW1
+    grad['W2'] = gradW2
+    grad['b1'] = gradb1
+    grad['b2'] = gradb2
+
+    return grad
     # *** END CODE HERE ***
 
 def gradient_descent_epoch(train_data, train_labels, learning_rate, batch_size, params, forward_prop_func, backward_prop_func):
@@ -153,6 +206,20 @@ def gradient_descent_epoch(train_data, train_labels, learning_rate, batch_size, 
     """
 
     # *** START CODE HERE ***
+
+    n, _ = train_data.shape
+
+    for i in range(n // batch_size):
+        grad = backward_prop_func(
+            train_data[i*batch_size:(i+1)*batch_size,:], 
+            train_labels[i*batch_size:(i+1)*batch_size,:], 
+            params, forward_prop_func)
+
+        params['W1'] -= learning_rate * grad['W1']
+        params['W2'] -= learning_rate * grad['W2']
+        params['b1'] -= learning_rate * grad['b1']
+        params['b2'] -= learning_rate * grad['b2']
+
     # *** END CODE HERE ***
 
     # This function does not return anything
@@ -163,24 +230,28 @@ def nn_train(
     get_initial_params_func, forward_prop_func, backward_prop_func,
     num_hidden=300, learning_rate=5, num_epochs=30, batch_size=1000):
 
-    (nexp, dim) = train_data.shape
+    (N, I) = train_data.shape
 
-    params = get_initial_params_func(dim, num_hidden, 10)
+    params = get_initial_params_func(I, num_hidden, 10)
 
     cost_train = []
     cost_dev = []
     accuracy_train = []
     accuracy_dev = []
-    for epoch in range(num_epochs):
+    for epoch in (range(num_epochs)):
         gradient_descent_epoch(train_data, train_labels, 
             learning_rate, batch_size, params, forward_prop_func, backward_prop_func)
 
         h, output, cost = forward_prop_func(train_data, train_labels, params)
+        acc = compute_accuracy(output,train_labels)
+        print(f"cost train: {cost}; accuracy train {acc}", end='')
         cost_train.append(cost)
-        accuracy_train.append(compute_accuracy(output,train_labels))
+        accuracy_train.append(acc)
         h, output, cost = forward_prop_func(dev_data, dev_labels, params)
         cost_dev.append(cost)
-        accuracy_dev.append(compute_accuracy(output, dev_labels))
+        acc = compute_accuracy(output, dev_labels)
+        accuracy_dev.append(acc)
+        print(f"cost_dev: {cost}; accuracy dev {acc}")
 
     return params, cost_train, cost_dev, accuracy_train, accuracy_dev
 
