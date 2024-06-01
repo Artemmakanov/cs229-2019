@@ -1,2 +1,10 @@
 \begin{answer}
+$$ \arg \min_{u:u^Tu=1} \sum_{i=1}^\nexp \|x^{(i)}-f_u(x^{(i)})\|_2^2 \  =  \arg \min_{u:u^Tu=1} \sum_{i=1}^\nexp \|x^{(i)}-ux^{(i)}u\|_2^2 \  =$$
+$$ \arg \min_{u:u^Tu=1} \sum_{i=1}^\nexp (x^{(i)}-ux^{(i)}u)^T(x^{(i)}-ux^{(i)}u)  = $$
+$$ \arg \min_{u:u^Tu=1} \sum_{i=1}^\nexp (x^{(i)})^{T} x^{(i)} + (u(x^{(i)})^{T}u)^{T} (x^{(i)})^{T} x^{(i)} + (u(x^{(i)})^{T}u) = $$
+$$  \arg \min_{u:u^Tu=1} \sum_{i=1}^\nexp (u^Tx^{(i)} (x^{(i)})^Tu - 2(x^{(i)})^Tu(x^{(i)})^Tu)= $$
+$$  \arg \min_{u:u^Tu=1} \sum_{i=1}^\nexp (-u^Tx^{(i)} (x^{(i)})^Tu)= $$
+$$  \arg \max_{u:u^Tu=1} \sum_{i=1}^\nexp (u^Tx^{(i)} (x^{(i)})^Tu)= $$
+$$  \arg \max_{u:u^Tu=1} \sum_{i=1}^\nexp (u^T\Sigma u) $$
+$u$ - eigenvalue of $\Sigma$, hence - $u$ - first principal component.
 \end{answer}

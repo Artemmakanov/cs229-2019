@@ -26,6 +26,11 @@ def init_centroids(num_clusters, image):
     """
 
     # *** START YOUR CODE ***
+    # print(image.shape)(128, 128, 3)
+    dim = image.shape[0]
+    height_indices = np.random.randint(0, dim, size=num_clusters)
+    width_indices = np.random.randint(0, dim, size=num_clusters)
+    centroids_init = image[height_indices, width_indices, :]
     # raise NotImplementedError('init_centroids function not implemented')
     # *** END YOUR CODE ***
 
@@ -60,6 +65,33 @@ def update_centroids(centroids, image, max_iter=30, print_every=10):
                 # Loop over all centroids and store distances in `dist`
                 # Find closest centroid and update `new_centroids`
         # Update `new_centroids`
+    dim = image.shape[0]
+    C = np.zeros((dim, dim))
+    dist = np.zeros((dim, dim))
+    new_centroids = np.zeros(centroids.shape)
+
+    for iteration in range(max_iter):
+        for h in range(dim):
+            for w in range(dim):
+
+                distances = [np.linalg.norm(image[h,w]-centroid) for centroid in centroids]
+                min_distance = min(distances)
+                C[h,w] = distances.index(min_distance)
+                dist[h,w] = min_distance
+
+        for j in range(len(new_centroids)):
+            mask = C == j
+            # print('mask', mask.shape)
+            # print(image[mask].shape)
+            # print(np.sum(image[mask], axis=0))
+            # print(np.mean(image[mask], axis=0))
+            new_centroids[j] = np.mean(image[mask], axis=0)
+        
+
+        if iteration % print_every == 0:
+            print('iteration', iteration)
+            # print(new_centroids)
+        
     # *** END YOUR CODE ***
 
     return new_centroids
@@ -88,6 +120,19 @@ def update_image(image, centroids):
             # Initialize `dist` vector to keep track of distance to every centroid
             # Loop over all centroids and store distances in `dist`
             # Find closest centroid and update pixel value in `image`
+    dim = image.shape[0]
+
+    for h in range(dim):
+        for w in range(dim):
+            # j_dist = [
+            #     (j, np.sum((image[h,w] - centroids[j])**2))
+            #     for j in range(len(centroids))
+            #     ]
+            
+            # j, _ = sorted(j_dist, key=lambda x: x[1])[0]
+            distances = [np.linalg.norm(image[h,w]-centroid) for centroid in centroids]
+            min_distance = min(distances)
+            image[h,w] = centroids[distances.index(min_distance)]
     # *** END YOUR CODE ***
 
     return image
@@ -125,8 +170,8 @@ def main(args):
     centroids = update_centroids(centroids_init, image, max_iter, print_every)
 
     # Load large image
-    image = mpimg.imread(image_path_large)
-    image.setflags(write=1)
+    image = np.array(mpimg.imread(image_path_large))
+    # image.setflags(write=1)
     print('[INFO] Loaded large image with shape: {}'.format(np.shape(image)))
     plt.figure(figure_idx)
     figure_idx += 1

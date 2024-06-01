@@ -3,6 +3,8 @@ CS 229 Machine Learning
 Question: Reinforcement Learning - The Inverted Pendulum
 """
 from __future__ import division, print_function
+from collections import defaultdict
+
 from env import CartPole, Physics
 import matplotlib.pyplot as plt
 import numpy as np
@@ -101,6 +103,38 @@ def initialize_mdp_data(num_states):
     """
 
     # *** START CODE HERE ***
+
+    V = np.random.uniform(0,0.1,num_states)
+    S2R_numenators = np.zeros(num_states)
+    S2R_denumenators = np.zeros(num_states)
+    # P_numenators = {}
+    # P_denumenators = {}
+    # P_numenators_session = {}
+    # P_denumenators_session = {}
+
+    P_numenators = np.ones((num_states, 2, num_states))
+    P_denumenators = np.ones((num_states, 2)) * num_states
+
+    P_numenators_session = np.zeros((num_states, 2, num_states))
+    P_denumenators_session = np.zeros((num_states, 2))
+
+    # for s in range(num_states):
+    #     for a in (0,1):
+    #         P_numenators[(s,a)] = np.ones(num_states)
+    #         P_denumenators[(s,a)] = num_states
+
+    #         P_numenators_session[(s,a)] = np.zeros(num_states)
+    #         P_denumenators_session[(s,a)] = 0
+
+    return {
+        'V': V, 
+        'S2R_numenators': S2R_numenators, 
+        'S2R_denumenators': S2R_denumenators,
+        'P_numenators': P_numenators,
+        'P_denumenators': P_denumenators,
+        'P_numenators_session': P_numenators_session,
+        'P_denumenators_session': P_denumenators_session
+    }
     # *** END CODE HERE ***
 
 def choose_action(state, mdp_data):
@@ -117,6 +151,12 @@ def choose_action(state, mdp_data):
     """
 
     # *** START CODE HERE ***
+    # values = np.zeros(2)
+    # for a in (0,1):
+        # values[a] = sum(mdp_data['V']*mdp_data['P_numenators'][(state, a)]) / mdp_data['P_denumenators'][(state, a)]
+
+    values = np.sum(mdp_data['P_numenators'][state, :, :] * mdp_data['V'], axis=1)/ mdp_data['P_denumenators'][state, :]
+    return np.argsort(-values)[0]
     # *** END CODE HERE ***
 
 def update_mdp_transition_counts_reward_counts(mdp_data, state, action, new_state, reward):
@@ -140,6 +180,11 @@ def update_mdp_transition_counts_reward_counts(mdp_data, state, action, new_stat
     """
 
     # *** START CODE HERE ***
+    mdp_data['S2R_numenators'][new_state] += reward
+    mdp_data['S2R_denumenators'][new_state] += 1
+    mdp_data['P_numenators_session'][state, action, new_state] += 1
+    mdp_data['P_denumenators_session'][state, action] += 1
+
     # *** END CODE HERE ***
 
     # This function does not return anything
@@ -163,6 +208,14 @@ def update_mdp_transition_probs_reward(mdp_data):
     """
 
     # *** START CODE HERE ***
+
+    num_states = len(mdp_data['V'])
+    
+    mdp_data['P_numenators'] += mdp_data['P_numenators_session']
+    mdp_data['P_denumenators'] += mdp_data['P_denumenators_session']
+
+    mdp_data['P_numenators_session'] = np.zeros((num_states, 2, num_states))
+    mdp_data['P_denumenators_session'] = np.zeros((num_states, 2))
     # *** END CODE HERE ***
 
     # This function does not return anything
@@ -190,6 +243,27 @@ def update_mdp_value(mdp_data, tolerance, gamma):
     """
 
     # *** START CODE HERE ***
+    num_states = len(mdp_data['V'])
+
+    iterations = 0
+    while True:
+        V_prev = mdp_data['V'].copy()
+
+        values = np.sum(mdp_data['P_numenators'] * mdp_data['V'], axis=2) / mdp_data['P_denumenators']
+
+        mask = mdp_data['S2R_denumenators'] > 0
+        mdp_data_s2r_num_nz = mdp_data['S2R_numenators'][mask]
+        mdp_data_s2r_den_nz = mdp_data['S2R_denumenators'][mask]
+        mdp_data['V'] = np.max(values, axis=1) * gamma
+        mdp_data['V'][mask] += mdp_data_s2r_num_nz / mdp_data_s2r_den_nz
+        iterations += 1
+
+        if np.linalg.norm((mdp_data['V'] - V_prev), ord=1) < tolerance:
+            break
+
+    mdp_data['S2R_numenators'] = np.zeros(num_states)
+    mdp_data['S2R_denumenators'] = np.zeros(num_states)
+    return iterations == 1
     # *** END CODE HERE ***
 
 def main():
@@ -226,8 +300,8 @@ def main():
     # `state` is the number given to this state, you only need to consider
     # this representation of the state
     state = cart_pole.get_state(state_tuple)
-    # if min_trial_length_to_start_display == 0 or display_started == 1:
-    #     cart_pole.show_cart(state_tuple, pause_time)
+    if min_trial_length_to_start_display == 0 or display_started == 1:
+        cart_pole.show_cart(state_tuple, pause_time)
 
     mdp_data = initialize_mdp_data(NUM_STATES)
 
@@ -242,7 +316,7 @@ def main():
     while consecutive_no_learning_trials < NO_LEARNING_THRESHOLD:
 
         action = choose_action(state, mdp_data)
-
+        
         # Get the next state by simulating the dynamics
         state_tuple = cart_pole.simulate(action, state_tuple)
         # x, x_dot, theta, theta_dot = state_tuple
@@ -252,8 +326,8 @@ def main():
 
         # Get the state number corresponding to new state vector
         new_state = cart_pole.get_state(state_tuple)
-        # if display_started == 1:
-        #     cart_pole.show_cart(state_tuple, pause_time)
+        if display_started == 1:
+            cart_pole.show_cart(state_tuple, pause_time)
 
         # reward function to use - do not change this!
         if new_state == NUM_STATES - 1:
@@ -266,11 +340,9 @@ def main():
         # Recompute MDP model whenever pole falls
         # Compute the value function V for the new model
         if new_state == NUM_STATES - 1:
-
             update_mdp_transition_probs_reward(mdp_data)
 
             converged_in_one_iteration = update_mdp_value(mdp_data, TOLERANCE, GAMMA)
-
             if converged_in_one_iteration:
                 consecutive_no_learning_trials = consecutive_no_learning_trials + 1
             else:
@@ -283,6 +355,7 @@ def main():
             if num_failures >= max_failures:
                 break
             print('[INFO] Failure number {}'.format(num_failures))
+            print(time - time_at_start_of_current_trial)
             time_steps_to_failure.append(time - time_at_start_of_current_trial)
             # time_steps_to_failure[num_failures] = time - time_at_start_of_current_trial
             time_at_start_of_current_trial = time

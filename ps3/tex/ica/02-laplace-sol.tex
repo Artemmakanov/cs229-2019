@@ -1,2 +1,6 @@
 \begin{answer}
+$$ W := W + \alpha (nW^{-T}  + \nabla_{W}(\sum_{i=1}^\nexp  \sum_{j=1}^d - |s_j^{(i)}|)) = $$
+$$W + \alpha (nW^{-T}  - (\sum_{i=1}^\nexp  \sum_{j=1}^d  \nabla_{s_j^{(i)}}|s_j^{(i)}|\nabla_{S}s_j^{(i)} \nabla_{W}S)) = $$
+$$W + \alpha (nW^{-T}  - (\sum_{i=1}^\nexp  \sum_{j=1}^d  sign(s_j^{(i)})X^T One(i,j))= $$
+$$W + \alpha (nW^{-T}  - (X^T sign(S))) =W + \alpha (nW^{-T}  - (X^T sign(XW)))  $$
 \end{answer}

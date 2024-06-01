@@ -30,6 +30,26 @@ def main(is_semi_supervised, trial_num):
     # phi should be a numpy array of shape (K,)
     # (3) Initialize the w values to place equal probability on each Gaussian
     # w should be a numpy array of shape (m, K)
+    n, d = x.shape
+    indices = np.array(range(n))
+    np.random.seed(100+trial_num)
+    np.random.shuffle(indices, )
+    mu = np.zeros((K, d))
+    sigma = np.zeros((K, d, d))
+    batch_size = len(x) // (K - 1)
+    for b in range(K):
+        
+        group = x[indices[batch_size*b: batch_size*(b+1)]]
+        mu[b] = group.mean(axis=0)
+        # print(f"g: {group.T @ group / n}")
+        # print(f"mu: {np.outer(mu[b], mu[b])}")
+        sigma[b] = group.T @ group / n - np.outer(mu[b], mu[b])
+
+    phi = np.ones(K) / K
+
+    w = np.ones(K) / K * np.ones((n, K))
+
+
     # *** END CODE HERE ***
 
     if is_semi_supervised:
@@ -42,6 +62,7 @@ def main(is_semi_supervised, trial_num):
     if w is not None:  # Just a placeholder for the starter code
         for i in range(n):
             z_pred[i] = np.argmax(w[i])
+            # print(w[i])
 
     plot_gmm_preds(x, z_pred, is_semi_supervised, plot_id=trial_num)
 
@@ -66,13 +87,13 @@ def run_em(x, w, phi, mu, sigma):
     # No need to change any of these parameters
     eps = 1e-3  # Convergence threshold
     max_iter = 1000
+    n, d = x.shape
 
     # Stop when the absolute change in log-likelihood is < eps
     # See below for explanation of the convergence criterion
     it = 0
     ll = prev_ll = None
     while it < max_iter and (prev_ll is None or np.abs(ll - prev_ll) >= eps):
-        pass  # Just a placeholder for the starter code
         # *** START CODE HERE
         # (1) E-step: Update your estimates in w
         # (2) M-step: Update the model parameters phi, mu, and sigma
@@ -80,6 +101,59 @@ def run_em(x, w, phi, mu, sigma):
         # By log-likelihood, we mean `ll = sum_x[log(sum_z[p(x|z) * p(z)])]`.
         # We define convergence by the first iteration where abs(ll - prev_ll) < eps.
         # Hint: For debugging, recall part (a). We showed that ll should be monotonically increasing.
+        print(f"ll: {ll}")
+        # print(f"w: {w}")
+        # print(f"phi: {phi}")
+        # print(f"mu: {mu}")
+        # print(f"sigma: {sigma}")
+        # E
+        for i in range(n):
+            
+            exp_v = np.vstack([-(x[i] - mu[j_]) @ np.linalg.inv(sigma[j_]) @ (x[i] - mu[j_]).T / 2 for j_ in range(K)])
+            exp_v = exp_v - np.max(exp_v, axis=0)
+            # print(f"exp_v {exp_v}")
+
+            denominator = 0.
+            for j_ in range(K):
+                # print(((x[i] - mu[j_]) @ np.linalg.inv(sigma[j_])@(x[i] - mu[j_]).T))
+                denominator += 1. / (np.abs(np.linalg.det(sigma[j_]))**0.5) * np.exp(exp_v[j_]) * phi[j_]
+
+            for j in range(K):
+                # print(np.linalg.inv(sigma[j]))
+                # print(f"exponented {exp_v[j]}")
+                numenator = 1. / (np.abs(np.linalg.det(sigma[j]))**0.5) * np.exp(exp_v[j]) * phi[j]
+                
+                w[i, j] = numenator / denominator
+            # print(f"denominator: {denominator}")
+     
+        # M
+        phi = np.mean(w, axis=0)
+
+        mu = (w.T @ x) / w.sum(axis=0).reshape((K, 1))
+        print(f"w: {w}")
+        print(f"phi: {phi}")
+        print(f"mu: {mu}")
+
+        for j in range(K):
+            # phi[j] = np.mean(w[j], axis=0)
+
+            # mu[j] = (w[:, j] @ x) / w[:, j].sum(axis=0)
+            # print(np.outer(x[0] - mu[j], x[0] - mu[j]))
+            # print(np.sum([w[i, j] * np.outer(x[i] - mu[j], x[i] - mu[j]) for i in range(n)], axis=0))
+            sigma[j] = (np.sum([w[i, j] * np.outer(x[i] - mu[j], x[i] - mu[j]) for i in range(n)], axis=0)) / w[:, j].sum(axis=0)
+            # print(sigma[j])
+            
+            # print(w[:, j].sum(axis=0))
+            # print(sigma[j] )
+
+        prev_ll = ll
+        ll = 0.
+        for i in range(n):
+
+            a = (sum(1. / ((2*np.pi)**(d/2) * (np.abs(np.linalg.det(sigma[j]))**0.5)) * np.exp( -(x[i] - mu[j])@np.linalg.inv(sigma[j])@(x[i] - mu[j]).T / 2) * phi[j] for j in range(d)))
+            if a > 0.:
+
+                ll += np.log(a)
         # *** END CODE HERE ***
 
     return w
@@ -108,6 +182,8 @@ def run_semi_supervised_em(x, x_tilde, z_tilde, w, phi, mu, sigma):
     alpha = 20.  # Weight for the labeled examples
     eps = 1e-3   # Convergence threshold
     max_iter = 1000
+    n, d = x.shape
+    n_tilde, _ = x_tilde.shape
 
     # Stop when the absolute change in log-likelihood is < eps
     # See below for explanation of the convergence criterion
@@ -122,6 +198,54 @@ def run_semi_supervised_em(x, x_tilde, z_tilde, w, phi, mu, sigma):
         # Hint: Make sure to include alpha in your calculation of ll.
         # Hint: For debugging, recall part (a). We showed that ll should be monotonically increasing.
         # *** END CODE HERE ***
+    
+        print(f"ll: {ll}")
+        # print(f"w: {w}")
+        # print(f"phi: {phi}")
+        # print(f"mu: {mu}")
+        # print(f"sigma: {sigma}")
+        # E
+        for i in range(n):
+            
+            exp_v = np.vstack([-(x[i] - mu[j_]) @ np.linalg.inv(sigma[j_]) @ (x[i] - mu[j_]).T / 2 for j_ in range(K)])
+            exp_v = exp_v - np.max(exp_v, axis=0)
+            # print(f"exp_v {exp_v}")
+
+            denominator = 0.
+            for j_ in range(K):
+                # print(((x[i] - mu[j_]) @ np.linalg.inv(sigma[j_])@(x[i] - mu[j_]).T))
+                denominator += 1. / (np.abs(np.linalg.det(sigma[j_]))**0.5) * np.exp(exp_v[j_]) * phi[j_]
+
+            for j in range(K):
+                # print(np.linalg.inv(sigma[j]))
+                # print(f"exponented {exp_v[j]}")
+                numenator = 1. / (np.abs(np.linalg.det(sigma[j]))**0.5) * np.exp(exp_v[j]) * phi[j]
+                
+                w[i, j] = numenator / denominator
+            # print(f"denominator: {denominator}")
+     
+
+        for j in range(K):
+            phi[j] = (np.sum(w[j], axis=0) + alpha*sum(z_tilde==j))/(n + alpha*n_tilde)
+
+            mu[j] = ((w[:, j] @ x) + alpha*(x_tilde*(z_tilde==j)).sum(axis=0)) / (w[:, j].sum(axis=0) + alpha*n_tilde)
+            
+            sigma[j] = np.sum([w[i, j] * np.outer(x[i] - mu[j], x[i] - mu[j]) for i in range(n)], axis=0)
+            
+
+            sigma[j] += alpha*np.sum([int(z_tilde[i]==j)*np.outer(x_tilde[i] - mu[j], x_tilde[i] - mu[j]) 
+                                      for i in range(n_tilde)], axis=0)
+            
+            sigma[j] /= (w[:, j].sum(axis=0) + alpha*sum(z_tilde==j))
+
+        prev_ll = ll
+        ll = 0.
+        for i in range(n):
+
+            a = (sum(1. / ((2*np.pi)**(d/2) * (np.abs(np.linalg.det(sigma[j]))**0.5)) * np.exp( -(x[i] - mu[j])@np.linalg.inv(sigma[j])@(x[i] - mu[j]).T / 2) * phi[j] for j in range(d)))
+            if a > 0.:
+
+                ll += np.log(a)
 
     return w
 
@@ -185,7 +309,6 @@ def load_gmm_dataset(csv_path):
 
 
 if __name__ == '__main__':
-    np.random.seed(229)
     # Run NUM_TRIALS trials to see how different initializations
     # affect the final predictions with and without supervision
     for t in range(NUM_TRIALS):

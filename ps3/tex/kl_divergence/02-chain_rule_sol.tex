@@ -1,2 +1,5 @@
 \begin{answer}
+$$ \KL(P(X,Y)\|Q(X,Y)) = \sum_y \sum_x P(x,y) \log(\frac{P(x,y)}{Q(x,y)}) = \sum_y \sum_x P(y|x)P(x) \log[\frac{P(y|x)P(x)}{Q(y|x)Q(x)}] = $$
+$$\sum_y \sum_x P(y|x)P(x) [\log(\frac{P(y|x)}{Q(y|x)}) + \log(\frac{P(x)}{Q(x)})] = $$
+$$\sum_y \sum_x p(y|x)p(x)\log(\frac{P(y|x)}{Q(y|x)}) + \sum_x p(x) \log(\frac{P(x)}{Q(x)}) =  \KL(P(Y|X)\|Q(Y|X)) + \KL(P(X)\|Q(X)) $$
 \end{answer}

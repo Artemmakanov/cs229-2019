@@ -1,2 +1,11 @@
 \begin{answer}
+$$\nabla_{W}\ell(W) = nW^{-T} - \nabla_{W} \sum_{i=1}^\nexp  \sum_{j=1}^d \frac{(s_j^{(i)})^2}{2} = 0$$
+$$nW^{-T} = \sum_{i=1}^\nexp  \sum_{j=1}^d \nabla_{s_j^{i}} \frac{(s_j^{(i)})^2}{2} \nabla_{S}(s_j^{i})  \nabla_{W}(S) $$
+$$nW^{-T} = \sum_{i=1}^\nexp  \sum_{j=1}^d s_j^{(i)} One(i,j) X^T $$
+One(i,j) -matrix of nulls, with only one 1 in i's row and j's column.
+$$nW^{-T} = X^T S= X^TXW  $$
+$$W^{-T}W^{-1} = X^TX \frac{1}{n}$$
+Let's $A' = RA$, where $R^TR = I$, R - orthogonal.
+Then, $A'^TA' = A^TR^TRA = A^TA$
+Hence, Gaussian pdf doesn't feel any difference in rotating.
 \end{answer}
