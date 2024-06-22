@@ -1,0 +1,86 @@
+\begin{answer}
+\centering
+\begin{enumerate}
+\item
+\subitem  (Symm)$K(x,z) = K_1(x,z) + K_2(x,z) = K_1(z,x) + K_2(z,x) = K(z,x)$
+\subitem (PSD) $x^TK_1x + x^TK_2x = x^T(K_1 + K_2)x \ge 0$ 
+\item (not PSD) $
+x^T
+\begin{bmatrix}
+    1  & 0 \\
+    0  & 1
+\end{bmatrix} x - 
+x^T
+\begin{bmatrix}
+    2  & 0 \\
+    0  & 2
+\end{bmatrix} x =
+x^T
+\begin{bmatrix}
+    -1  & 0 \\
+    0  & -1
+\end{bmatrix} x =
+- (x_1^2 + x_2^2) \le 0
+$
+\item 
+\subitem  (Symm)$K(x,z) = a K_1(x,z) = a K_1(z,x) = K(z,x)$
+\subitem (PSD) $x^TK(x,z)x = a x^TK_1(x,z)x \ge 0$
+\item (not PSD) 
+$
+\begin{bmatrix}
+    1  & 0 \\
+    0  & 1
+\end{bmatrix} 
+$ - kernel
+$
+\begin{bmatrix}
+    -1  & 0 \\
+    0  & -1
+\end{bmatrix} 
+$ - not a kernel
+\item
+\subitem  (Symm)$K(x,z) = K_1(x,z)K_2(x,z) =  K_1(z,x)K_2(z,x)= K(z,x)$
+\subitem (PSD) $K(x^{(i)}, x^{(j)}) =K_1(x^{(i)}, x^{(j)})K_2(x^{(i)}, x^{(j)}) = (\sum_{p, q} \phi_1^{(p)}(x^{(i)}) \phi_1^{(q)}(x^{(j)}))  (\sum_{p, q} \phi_2^{(p)}(x^{(i)}) \phi_2^{(q)}(x^{(j)})) =$
+$\sum_{p, q} \phi_1^{(p)}(x^{(i)}) \phi_1^{(q)}(x^{(i)}) \phi_2^{(p)}(x^{(i)}) \phi_2^{(q)}(x^{(i)})$ 
+$x^TKx = \sum_{p, q}  \sum_{i, j} x^{(i)} \phi_1^{(p)}(x^{(i)}) \phi_1^{(q)}(x^{(i)}) \phi_2^{(p)}(x^{(i)}) \phi_2^{(q)}(x^{(i)}) x^{(j)} =$
+$\sum_{p, q} (\sum_{i} x^{(i)} \phi_1^{(p)}(x^{(i)}) \phi_2^{(q)}(x^{(i)}))^2$
+\item 
+\subitem  (Symm)$K(x,z) = f(x) f(z) = f(z) f(x) = K(z,x)$
+\subitem (PSD) $x^TKx = \sum_{i, j} x^{(i)} f(x^{(i)}) x^{(j)} f(x^{(j)}) = (\sum_{i}x^{(i)} f(x^{(i)}) )^2 \ge 0$
+\item
+\subitem  (Symm) $K(x,z) = K_3(\phi(x), \phi(z)) = K_3(\phi(z), \phi(x)) = K(z,x)$
+\subitem (PSD) $x^TKx = \sum_{i, j} x^{(i)} f(\phi(x^{(i)})) x^{(j)} f(\phi(x^{(j)})) = (\sum_{i}x^{(i)} f(\phi(x^{(i)})) )^2 \ge 0$
+\item 
+\subitem  (Symm) $K(x,z) = p(K_1(x, z)) = p(K_1(z, x))= K(z,x)$
+\subitem (PSD) $
+K = 
+a_0\begin{bmatrix}
+    1 & \dots  & 1 \\
+    \vdots & \ddots & \vdots \\
+    1 & \dots  & 1
+\end{bmatrix} + 
+a_1\begin{bmatrix}
+    K_1(x^{(1)},x^{(1)}) & \dots  & K_1(x^{(1)},x^{(n)})  \\
+    \vdots & \ddots & \vdots \\
+    K_1(x^{(n)},x^{(1)})  & \dots  & K_1(x^{(n)},x^{(n()}) 
+\end{bmatrix} + $ \\
+$
+a_2\begin{bmatrix}
+    K_1(x^{(1)},x^{(1)})^2 & \dots  & K_1(x^{(1)},x^{(n)})^2  \\
+    \vdots & \ddots & \vdots \\
+    K_1(x^{(n)},x^{(1)})^2  & \dots  & K_1(x^{(n)},x^{(n()})^2
+\end{bmatrix}   + ...
+$
+\subitem 0. $x^Ta_0\begin{bmatrix}
+    1 & \dots  & 1 \\
+    \vdots & \ddots & \vdots \\
+    1 & \dots  & 1
+\end{bmatrix}x \ge 0 $
+\subitem 1. $a_1 x^T K_1 x \ge 0$
+\subitem 2. $a_1 x^T K_1 \circ K_1 x \ge 0$ (consequence from (e))
+\subitem 3. ...
+
+\end{enumerate}
+
+
+\end{answer}
